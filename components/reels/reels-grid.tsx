@@ -441,16 +441,20 @@ export default function ReelsGrid({
 
           {/* Pagination */}
           {meta && meta.last_page > 1 && (
-            <div className="flex items-center justify-center gap-2 mt-8 flex-wrap">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-2 mt-8">
               {/* Previous Button */}
               <button
                 onClick={() => goToPage(meta.current_page - 1)}
                 disabled={meta.current_page === 1 || isLoading}
-                className="flex items-center gap-1 px-3 py-2 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex items-center gap-1 px-3 py-2 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
                 aria-label={t.previous}
               >
-                <ChevronLeft className="w-4 h-4" />
-                <span className="hidden sm:inline">{t.previous}</span>
+                {isRTL ? (
+                  <ChevronRight className="w-4 h-4" />
+                ) : (
+                  <ChevronLeft className="w-4 h-4" />
+                )}
+                <span>{t.previous}</span>
               </button>
 
               {/* Page Numbers */}
@@ -459,7 +463,7 @@ export default function ReelsGrid({
                   page === "..." ? (
                     <span
                       key={`ellipsis-${index}`}
-                      className="px-3 py-2 text-gray-400"
+                      className="px-2 sm:px-3 py-2 text-gray-400 text-sm sm:text-base"
                     >
                       ...
                     </span>
@@ -468,7 +472,7 @@ export default function ReelsGrid({
                       key={page}
                       onClick={() => goToPage(page as number)}
                       disabled={isLoading}
-                      className={`min-w-10 px-3 py-2 rounded-lg transition-colors ${
+                      className={`min-w-8 sm:min-w-10 px-2 sm:px-3 py-2 rounded-lg transition-colors text-sm sm:text-base ${
                         meta.current_page === page
                           ? "bg-primary-700 text-white"
                           : "bg-white border border-gray-200 hover:bg-gray-50"
@@ -484,11 +488,15 @@ export default function ReelsGrid({
               <button
                 onClick={() => goToPage(meta.current_page + 1)}
                 disabled={meta.current_page === meta.last_page || isLoading}
-                className="flex items-center gap-1 px-3 py-2 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex items-center gap-1 px-3 py-2 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
                 aria-label={t.next}
               >
-                <span className="hidden sm:inline">{t.next}</span>
-                <ChevronRight className="w-4 h-4" />
+                <span>{t.next}</span>
+                {isRTL ? (
+                  <ChevronLeft className="w-4 h-4" />
+                ) : (
+                  <ChevronRight className="w-4 h-4" />
+                )}
               </button>
             </div>
           )}

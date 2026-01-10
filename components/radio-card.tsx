@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 const FALLBACK_IMAGE =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect fill='%231f2937' width='200' height='200'/%3E%3Ccircle cx='100' cy='80' r='35' fill='%234b5563'/%3E%3Cpath d='M100 60 L100 100 M80 80 L120 80' stroke='%236b7280' stroke-width='6' stroke-linecap='round'/%3E%3Crect x='50' y='140' width='100' height='8' rx='4' fill='%234b5563'/%3E%3Crect x='65' y='155' width='70' height='6' rx='3' fill='%23374151'/%3E%3C/svg%3E";
@@ -14,25 +14,29 @@ interface RadioCardProps {
   title: string;
   description: string;
   imageUrl: string;
-  duration?: string;
   isLive?: boolean;
-  listeners?: number;
 }
 
 function RadioCard({
   title,
   description,
   imageUrl,
-  duration = "Live",
   isLive = true,
-  listeners = 0,
 }: RadioCardProps) {
+  const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const [imageError, setImageError] = useState(false);
-
+  useEffect(() => {
+    if (!audioRef.current) return;
+    if (isPlaying) {
+      audioRef.current.play();
+    } else {
+      audioRef.current.pause();
+    }
+  }, [isPlaying]);
   return (
-    <div className="w-full max-w-7xl mx-auto px-4">
+    <div className="w-full max-w-7xl mx-auto ">
       {/* Main Card Container - Wide horizontal layout */}
       <div className="relative bg-linear-to-br rounded-2xl from-primary-900 via-primary-800 to-primary-950 overflow-hidden shadow-2xl border border-primary-700/50">
         {/* Soundwave Animation - Background of entire card */}
@@ -52,9 +56,13 @@ function RadioCard({
             />
           ))}
         </div>
-
+        <audio
+          ref={audioRef}
+          src="https://a4.asurahosting.com:6970/radio.mp3"
+          preload="metadata"
+        />
         {/* Content wrapper - flex row on large, column on small */}
-        <div className="relative z-10 flex flex-col md:flex-row-reverse p-10 md:py-32 md:px-24 gap-10 md:gap-16">
+        <div className="relative z-10 flex flex-col md:flex-row-reverse p-8 md:py-32 md:px-24 gap-10 md:gap-16">
           {/* Square Image - Small and fixed size */}
           <div className="relative shrink-0 w-52 h-52 md:w-80 md:h-80 mx-auto md:mx-0">
             <img
@@ -85,20 +93,6 @@ function RadioCard({
                 <h3 className="text-white text-2xl md:text-4xl font-bold leading-tight">
                   {title}
                 </h3>
-                {listeners > 0 && (
-                  <div className="flex items-center gap-1.5 bg-primary-950/60 backdrop-blur-sm px-2 py-1 rounded-full border border-primary-700/30">
-                    <svg
-                      className="w-3.5 h-3.5 text-white"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" />
-                    </svg>
-                    <span className="text-white text-xs font-medium">
-                      {new Intl.NumberFormat("en-US").format(listeners)}
-                    </span>
-                  </div>
-                )}
               </div>
               <p className="text-white text-sm md:text-lg mb-6 line-clamp-3">
                 {description}
@@ -147,9 +141,7 @@ function RadioCard({
                   </>
                 )}
               </button>
-              <span className="text-white text-base font-medium">
-                {duration}
-              </span>
+
               {/* Save Button */}
               <button
                 onClick={() => setIsSaved(!isSaved)}

@@ -423,26 +423,26 @@ export default async function NewsPage({
 
               {/* Pagination */}
               {meta && meta.last_page > 1 && (
-                <div className="mt-12 flex items-center justify-center gap-2">
+                <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-2">
                   {/* Previous Button */}
                   {page > 1 ? (
                     <Link
                       href={buildUrl({ page: (page - 1).toString() })}
-                      className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+                      className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors text-sm sm:text-base"
                     >
                       {isArabic ? (
-                        <ChevronRight className="w-5 h-5" />
+                        <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
                       ) : (
-                        <ChevronLeft className="w-5 h-5" />
+                        <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
                       )}
                       {t("previous")}
                     </Link>
                   ) : (
-                    <div className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-400 rounded-lg cursor-not-allowed">
+                    <div className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-400 rounded-lg cursor-not-allowed text-sm sm:text-base">
                       {isArabic ? (
-                        <ChevronRight className="w-5 h-5" />
+                        <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
                       ) : (
-                        <ChevronLeft className="w-5 h-5" />
+                        <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
                       )}
                       {t("previous")}
                     </div>
@@ -468,7 +468,7 @@ export default async function NewsPage({
                           <Link
                             key={pageNum}
                             href={buildUrl({ page: pageNum.toString() })}
-                            className={`w-10 h-10 flex items-center justify-center rounded-lg transition-colors ${
+                            className={`w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-lg transition-colors text-sm sm:text-base ${
                               pageNum === page
                                 ? "bg-primary-800 text-white"
                                 : "bg-white border border-gray-200 hover:bg-gray-50"
@@ -485,22 +485,22 @@ export default async function NewsPage({
                   {page < meta.last_page ? (
                     <Link
                       href={buildUrl({ page: (page + 1).toString() })}
-                      className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+                      className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors text-sm sm:text-base"
                     >
                       {t("next")}
                       {isArabic ? (
-                        <ChevronLeft className="w-5 h-5" />
+                        <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
                       ) : (
-                        <ChevronRight className="w-5 h-5" />
+                        <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
                       )}
                     </Link>
                   ) : (
-                    <div className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-400 rounded-lg cursor-not-allowed">
+                    <div className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-400 rounded-lg cursor-not-allowed text-sm sm:text-base">
                       {t("next")}
                       {isArabic ? (
-                        <ChevronLeft className="w-5 h-5" />
+                        <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
                       ) : (
-                        <ChevronRight className="w-5 h-5" />
+                        <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
                       )}
                     </div>
                   )}

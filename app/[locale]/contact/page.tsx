@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import Header from "@/components/header";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { useState } from "react";
+import Footer from "@/components/footer";
 
 export default function ContactPage() {
   const t = useTranslations("ContactPage");
@@ -31,10 +32,10 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="h-screen flex flex-col bg-white">
+    <>
       <Header />
 
-      <main className="flex-1 overflow-y-auto bg-gray-50">
+      <main className="flex-1 overflow-y-auto  bg-gray-50">
         <div className="container mx-auto px-4 py-6 h-full">
           <div className="max-w-7xl mx-auto h-full flex flex-col">
             {/* Title Section */}
@@ -48,7 +49,7 @@ export default function ContactPage() {
             </div>
 
             {/* Main Content Grid */}
-            <div className="grid lg:grid-cols-3 gap-6 flex-1 min-h-0">
+            <div className="flex flex-col-reverse lg:grid lg:grid-cols-3 gap-6 flex-1 min-h-0">
               {/* Contact Form - Takes 2 columns */}
               <div className="lg:col-span-2 flex flex-col">
                 <div className="bg-white rounded-lg p-8 shadow-sm border border-gray-200 flex flex-col h-full">
@@ -242,6 +243,7 @@ export default function ContactPage() {
           </div>
         </div>
       </main>
-    </div>
+      <Footer />
+    </>
   );
 }

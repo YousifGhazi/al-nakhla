@@ -1,5 +1,3 @@
-"use client";
-
 import { useTranslations, useLocale } from "next-intl";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
@@ -9,17 +7,13 @@ import RadioCard from "@/components/radio-card";
 // Static data for demo
 const mockProgram = {
   title: {
-    ar: "أمسيات النخلة",
-    en: "Evening Vibes",
-  },
-  host: {
-    ar: "سارة المنصوري",
-    en: "Sarah Al-Mansouri",
+    ar: " برامج اذاعة النخلة",
+    en: "Al-Nakhla Radio Programs",
   },
   listeners: 12453,
   description: {
-    ar: "انضم إلينا لأفضل الأمسيات الموسيقية والترفيهية مع أجمل الأغاني والحوارات الممتعة",
-    en: "Join us for the best evening music and entertainment with the finest songs and engaging conversations",
+    ar: " استمع إلى أفضل البرامج الموسيقية والثقافية على إذاعة النخلة إف إم طوال اليوم. انضم إلينا في رحلة مليئة بالترفيه والمعرفة.",
+    en: "Tune in to the best music and cultural programs on Al Nakhla FM Radio all day long. Join us for a journey filled with entertainment and knowledge.",
   },
   startTime: "18:00",
   endTime: "21:00",
@@ -31,32 +25,12 @@ const HAS_ACTIVE_PROGRAM = true;
 export default function RadioPage() {
   const t = useTranslations("RadioPage");
   const locale = useLocale();
-  const [currentListeners, setCurrentListeners] = useState(
-    mockProgram.listeners
-  );
 
   const currentTitle =
     mockProgram.title[locale as keyof typeof mockProgram.title] ||
     mockProgram.title.en;
 
   // Simulate listener count changes
-  useEffect(() => {
-    if (!HAS_ACTIVE_PROGRAM) return;
-
-    const interval = setInterval(() => {
-      setCurrentListeners((prev) =>
-        Math.max(
-          mockProgram.listeners - 100,
-          Math.min(
-            mockProgram.listeners + 100,
-            prev + Math.floor(Math.random() * 10 - 5)
-          )
-        )
-      );
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <>
@@ -70,10 +44,8 @@ export default function RadioPage() {
                 locale as keyof typeof mockProgram.description
               ] || mockProgram.description.en
             }
-            imageUrl="https://picsum.photos/500/500"
-            duration={`${mockProgram.startTime} - ${mockProgram.endTime}`}
+            imageUrl="/images/radio.jpeg"
             isLive={HAS_ACTIVE_PROGRAM}
-            listeners={currentListeners}
           />
         </div>
       </main>
