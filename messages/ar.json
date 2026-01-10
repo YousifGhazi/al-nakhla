@@ -1,0 +1,340 @@
+{
+  "HomePage": {
+    "title": "مرحباً بكم في النخلة إف إم",
+    "description": "محطتك الإذاعية المفضلة"
+  },
+  "Header": {
+    "home": "الرئيسية",
+    "news": "الاخبار",
+    "radio": "راديو",
+    "reels": "ريلز",
+    "ourShows": "برامجنا",
+    "aboutUs": "حولنا",
+    "contactUs": "تواصل معنا",
+    "radioStation": "النخلة إف إم",
+    "tagline": "إذاعتك المفضلة",
+    "languageSwitch": "EN"
+  },
+  "HeroCarousel": {
+    "news": "الأخبار",
+    "readMore": "اقرأ المزيد",
+    "previous": "السابق",
+    "next": "التالي",
+    "slide": "الشريحة",
+    "comments": "تعليق",
+    "likes": "إعجاب",
+    "shares": "مشاركات",
+    "noNews": "لا توجد أخبار متاحة حالياً"
+  },
+  "BreakingNews": {
+    "title": "أخبار عاجلة",
+    "urgent": "عاجل",
+    "breaking": "عاجل",
+    "readFullDetails": "اقرأ التفاصيل الكاملة",
+    "allBreakingNews": "جميع الأخبار العاجلة",
+    "tickerText": "تابعونا للحصول على آخر الأخبار والتحديثات اللحظية • أخبار عاجلة على مدار الساعة • النخلة إف إم - مصدرك الموثوق للأخبار"
+  },
+  "NewsCategories": {
+    "title": "تصنيفات الأخبار",
+    "description": "ابق على اطلاع بأحدث الأخبار من حول العالم",
+    "trendingNews": "الأخبار الرائجة",
+    "localNews": "أخبار محلية",
+    "worldNews": "أخبار عالمية",
+    "societyCulture": "مجتمع وثقافة",
+    "viewAllNews": "عرض جميع الأخبار",
+    "exploreAllCategories": "استكشف جميع التصنيفات"
+  },
+  "NewsCategoriesDynamic": {
+    "title": "آخر الأخبار",
+    "description": "ابق على اطلاع بالأخبار من مختلف التصنيفات",
+    "sports": "رياضة",
+    "entertainment": "ترفيه",
+    "politics": "سياسة",
+    "technology": "تكنولوجيا",
+    "viewAllNews": "عرض الكل",
+    "exploreAllCategories": "استكشف جميع الأخبار"
+  },
+  "RadioPrograms": {
+    "title": "برامجنا الإذاعية",
+    "description": "استمع إلى أفضل البرامج على مدار اليوم",
+    "live": "مباشر",
+    "host": "المذيع: ",
+    "time": "الوقت: ",
+    "listeners": "مستمع",
+    "viewFullSchedule": "عرض جدول البرامج الكامل"
+  },
+  "FeaturedShows": {
+    "title": "برامجنا",
+    "description": "اكتشف أشهر برامجنا وعروضنا",
+    "featured": "مميز",
+    "host": "المقدم: ",
+    "time": "الوقت: ",
+    "viewAllShows": "عرض جميع البرامج"
+  },
+  "Footer": {
+    "radioStation": "النخلة إف إم",
+    "tagline": "إذاعتك المفضلة",
+    "description": "نقدم لكم أفضل البرامج الإذاعية والأخبار على مدار الساعة. استمتعوا بتجربة استماع فريدة مع أحدث الموسيقى والمحتوى الترفيهي.",
+    "quickLinks": "روابط سريعة",
+    "categories": "التصنيفات",
+    "contactUs": "تواصل معنا",
+    "home": "الرئيسية",
+    "news": "الأخبار",
+    "programs": "البرامج",
+    "aboutUs": "حولنا",
+    "localNews": "أخبار محلية",
+    "worldNews": "أخبار عالمية",
+    "sports": "رياضة",
+    "technology": "تكنولوجيا",
+    "address": "المنصور, الكرخ, بغداد",
+    "liveBroadcasting": "البث المباشر",
+    "allDay": "٢٤ ساعة / ٧ أيام"
+  },
+  "AboutPage": {
+    "pageTitle": "من نحن",
+    "heroTitle": "من نحن",
+    "heroDescription": "نحن في إذاعة النخلة إف إم، رائدة في عالم البث الإذاعي والإعلام الرقمي. منذ تأسيسنا، نلتزم بتقديم محتوى متميز يجمع بين الأخبار والترفيه والثقافة، ونسعى لنكون صوت المجتمع والنافذة التي تطل على العالم.",
+    "missionTitle": "رسالتنا",
+    "missionDescription": "تقديم محتوى إذاعي وإعلامي متنوع وموثوق يلبي احتياجات المستمعين، ويعزز الوعي المجتمعي، ويساهم في نشر الثقافة والمعرفة. نلتزم بالمهنية والمصداقية في كل ما نقدمه، ونسعى لبناء جسور التواصل بين مختلف شرائح المجتمع من خلال برامج متنوعة تلامس اهتماماتهم وتطلعاتهم.",
+    "visionTitle": "رؤيتنا",
+    "visionDescription": "أن نكون المحطة الإذاعية الرائدة والأكثر تأثيراً في المنطقة، ومنصة إعلامية متطورة تواكب التغيرات التكنولوجية والرقمية. نطمح لأن نكون الخيار الأول للمستمعين الذين يبحثون عن محتوى إعلامي نوعي يجمع بين الأصالة والحداثة، ويساهم في تشكيل رأي عام واعٍ ومستنير.",
+    "socialTitle": "تواصل معنا",
+    "socialDescription": "تابعنا على وسائل التواصل الاجتماعي للحصول على آخر التحديثات والمحتوى من وراء الكواليس والمقابلات الحصرية",
+    "facebook": "فيسبوك",
+    "twitter": "تويتر",
+    "instagram": "انستقرام",
+    "youtube": "يوتيوب",
+    "tiktok": "تيك توك",
+    "linkedin": "لينكد إن",
+    "timelineTitle": "تاريخنا وإنجازاتنا",
+    "timeline": [
+      {
+        "year": "٢٠١٦",
+        "title": "التأسيس",
+        "description": "انطلقت إذاعة النخلة إف إم بمجموعة من البرامج المتنوعة والمحتوى المميز."
+      },
+      {
+        "year": "٢٠١٧",
+        "title": "التوسع الرقمي",
+        "description": "إطلاق منصاتنا الرقمية وتطبيقات الهواتف الذكية للوصول لجمهور أوسع."
+      },
+      {
+        "year": "٢٠١٩",
+        "title": "جائزة التميز",
+        "description": "فوز الإذاعة بجائزة أفضل محطة إذاعية محلية تقديراً لجودة المحتوى."
+      },
+      {
+        "year": "٢٠٢١",
+        "title": "استوديوهات متطورة",
+        "description": "افتتاح استوديوهات جديدة مجهزة بأحدث تقنيات البث الإذاعي."
+      },
+      {
+        "year": "٢٠٢٣",
+        "title": "الانتشار الإقليمي",
+        "description": "توسيع نطاق البث ليشمل عدة مدن وإطلاق شراكات استراتيجية جديدة."
+      },
+      {
+        "year": "٢٠٢٥",
+        "title": "الابتكار المستمر",
+        "description": "تبني تقنيات الذكاء الاصطناعي في إنتاج وتوزيع المحتوى الإذاعي."
+      }
+    ],
+    "teamTitle": "فريقنا",
+    "teamDescription": "نفخر بفريق عمل محترف ومتميز من المذيعين والصحفيين والمنتجين",
+    "team": [
+      {
+        "name": "أحمد محمد الخليلي",
+        "role": "رئيس التحرير",
+        "image": "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop"
+      },
+      {
+        "name": "سارة أحمد العلي",
+        "role": "مديرة البرامج",
+        "image": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop"
+      },
+      {
+        "name": "محمد علي السعيد",
+        "role": "مدير الأخبار",
+        "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop"
+      },
+      {
+        "name": "فاطمة حسن النوري",
+        "role": "مذيعة رئيسية",
+        "image": "https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=400&h=400&fit=crop"
+      },
+      {
+        "name": "خالد يوسف الحجار",
+        "role": "مقدم برامج",
+        "image": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop"
+      },
+      {
+        "name": "نور الهدى محمود",
+        "role": "صحفية ومراسلة",
+        "image": "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop"
+      },
+      {
+        "name": "عمر عبد الله المطيري",
+        "role": "مدير التقنية",
+        "image": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop"
+      },
+      {
+        "name": "ليلى حسين العتيبي",
+        "role": "منتجة محتوى",
+        "image": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=400&fit=crop"
+      }
+    ],
+    "facilitiesTitle": "غرفة أخبارنا وإنجازاتنا",
+    "facilitiesDescription": "نعمل من خلال استوديوهات مجهزة بأحدث التقنيات العالمية لتقديم أفضل تجربة إذاعية. غرف أخبارنا مزودة بأنظمة بث مباشر متطورة تمكننا من تغطية الأحداث لحظة بلحظة، وفريقنا يعمل على مدار الساعة لضمان وصول المحتوى الموثوق إليكم."
+  },
+  "ContactPage": {
+    "pageTitle": "تواصل معنا",
+    "heroTitle": "تواصل معنا",
+    "heroDescription": "نحن هنا للاستماع إليك. تواصل معنا لأي استفسارات أو ملاحظات",
+    "formTitle": "أرسل لنا رسالة",
+    "formDescription": "املأ النموذج أدناه وسنعاود الاتصال بك في أقرب وقت ممكن",
+    "namePlaceholder": "الاسم الكامل",
+    "emailPlaceholder": "البريد الإلكتروني",
+    "phonePlaceholder": "رقم الهاتف",
+    "subjectPlaceholder": "الموضوع",
+    "messagePlaceholder": "اكتب رسالتك هنا...",
+    "submitButton": "إرسال الرسالة",
+    "contactInfoTitle": "معلومات التواصل",
+    "addressLabel": "العنوان",
+    "addressValue": "المنصور، الكرخ، بغداد، العراق",
+    "phoneLabel": "الهاتف",
+    "phoneValue": "+964 770 123 4567",
+    "emailLabel": "البريد الإلكتروني",
+    "emailValue": "info@alnakhla.fm",
+    "hoursLabel": "ساعات العمل",
+    "hoursValue": "الأحد - الخميس: 9:00 ص - 6:00 م",
+    "locationTitle": "موقعنا"
+  },
+  "RadioPage": {
+    "pageTitle": "الراديو المباشر",
+    "noActiveProgram": "لا يوجد بث مباشر",
+    "noActiveProgramDescription": "نحن حاليًا خارج البث. تحقق قريبًا من برنامجنا المباشر التالي!",
+    "checkSchedule": "عرض جدول البرامج",
+    "nowPlaying": "الآن على الهواء",
+    "hosted": "يقدمه",
+    "listeners": "مستمع",
+    "joinBroadcast": "انضم للبث المباشر",
+    "leaveBroadcast": "مغادرة البث",
+    "liveBadge": "مباشر",
+    "broadcasting": "البث جارٍ",
+    "volumeControl": "التحكم بالصوت"
+  },
+  "News": {
+    "title": "الأخبار",
+    "description": "ابق على اطلاع بأهم الأخبار والتطورات",
+    "subtitle": "ابق على اطلاع بأهم الأخبار والتطورات من حول العالم",
+    "searchPlaceholder": "البحث عن أخبار...",
+    "categories": "التصنيفات",
+    "allCategories": "جميع التصنيفات",
+    "featured": "مميز",
+    "featuredOnly": "المميزة فقط",
+    "sortNewest": "الأحدث أولاً",
+    "sortOldest": "الأقدم أولاً",
+    "sortMostViewed": "الأكثر مشاهدة",
+    "sortLeastViewed": "الأقل مشاهدة",
+    "sortTitleAZ": "العنوان أ-ي",
+    "sortTitleZA": "العنوان ي-أ",
+    "showingResults": "عرض {from} إلى {to} من {total} نتيجة",
+    "noNewsFound": "لم يتم العثور على أخبار",
+    "tryDifferentFilters": "حاول تعديل البحث أو الفلاتر",
+    "clearFilters": "مسح جميع الفلاتر",
+    "previous": "السابق",
+    "next": "التالي",
+    "dateFrom": "من",
+    "dateTo": "إلى"
+  },
+  "NewsDetail": {
+    "backToNews": "العودة للأخبار",
+    "views": "مشاهدة",
+    "shareArticle": "شارك هذا المقال",
+    "relatedNews": "أخبار ذات صلة"
+  },
+  "NewsPage": {
+    "pageTitle": "الأخبار",
+    "heroTitle": "آخر الأخبار",
+    "heroDescription": "ابق على اطلاع بأهم الأخبار والتطورات من حول العالم",
+    "searchPlaceholder": "البحث عن أخبار...",
+    "filterTitle": "تصفية الأخبار",
+    "categoryFilter": "تصنيفات الأخبار",
+    "dateFilter": "الفترة الزمنية",
+    "clearFilters": "مسح الفلاتر",
+    "toggleFilters": "إظهار الفلاتر",
+    "resultsCount": "تم العثور على {count} نتيجة",
+    "resultsFound": "نتيجة",
+    "featuredNews": "الأخبار المميزة",
+    "allNews": "جميع الأخبار",
+    "readMore": "اقرأ المزيد",
+    "noResults": "لم يتم العثور على أخبار",
+    "noResultsDescription": "حاول تعديل الفلاتر أو استعلام البحث"
+  },
+  "ShowsPage": {
+    "pageTitle": "برامجنا",
+    "heroTitle": "برامجنا",
+    "heroDescription": "اكتشف برامجنا الإذاعية المتنوعة والمحتوى الجذاب على مدار اليوم",
+    "filterByCategory": "تصفية حسب الفئة",
+    "live": "مباشر",
+    "liveNow": "مباشر الآن",
+    "listeners": "مستمع",
+    "viewDetails": "عرض التفاصيل",
+    "hostedBy": "يقدمه",
+    "airTime": "وقت البث",
+    "days": "أيام العرض",
+    "aboutShow": "عن البرنامج",
+    "contactInfo": "التواصل والمشاركة",
+    "callUs": "للاتصال على الأرقام:",
+    "whatsapp": "للمراسلة على الواتساب:",
+    "favorite": "المفضلة",
+    "share": "مشاركة",
+    "noShows": "لا توجد برامج",
+    "noShowsDescription": "تحقق لاحقاً لمشاهدة برامج جديدة",
+    "todayShows": "برامج اليوم",
+    "onAirToday": "على الهواء اليوم عبر النخلة إف إم",
+    "noShowsToday": "لا توجد برامج مجدولة لهذا اليوم",
+    "selectDay": "تصفح حسب اليوم",
+    "showsFor": "برامج يوم",
+    "noShowsForDay": "لا توجد برامج مجدولة لهذا اليوم",
+    "allShows": "جميع البرامج",
+    "page": "صفحة",
+    "of": "من",
+    "previous": "السابق",
+    "next": "التالي",
+    "sunday": "الأحد",
+    "monday": "الإثنين",
+    "tuesday": "الثلاثاء",
+    "wednesday": "الأربعاء",
+    "thursday": "الخميس",
+    "friday": "الجمعة",
+    "saturday": "السبت"
+  },
+  "ReelsPage": {
+    "pageTitle": "ريلز",
+    "heroTitle": "شاهد الريلز",
+    "heroDescription": "اكتشف مقاطع الفيديو القصيرة والمحتوى الحصري من النخلة إف إم",
+    "views": "مشاهدة",
+    "likes": "إعجاب",
+    "share": "مشاركة",
+    "copyLink": "نسخ الرابط",
+    "linkCopied": "تم النسخ!",
+    "close": "إغلاق",
+    "noReels": "لا توجد ريلز",
+    "noReelsDescription": "تحقق لاحقاً لمشاهدة محتوى جديد",
+    "loading": "جارِ التحميل...",
+    "sortBy": "ترتيب حسب",
+    "newest": "الأحدث",
+    "oldest": "الأقدم",
+    "mostViewed": "الأكثر مشاهدة",
+    "mostLiked": "الأكثر إعجاباً",
+    "searchPlaceholder": "البحث في الريلز...",
+    "by": "بواسطة",
+    "page": "صفحة",
+    "of": "من",
+    "previous": "السابق",
+    "next": "التالي",
+    "duration": "المدة",
+    "fileSize": "حجم الملف"
+  }
+}

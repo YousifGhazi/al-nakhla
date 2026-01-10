@@ -1,0 +1,340 @@
+{
+  "HomePage": {
+    "title": "Welcome to Al-Nakhla FM",
+    "description": "Your favorite radio station"
+  },
+  "Header": {
+    "home": "Home",
+    "news": "News",
+    "radio": "Radio",
+    "reels": "Reels",
+    "ourShows": "Our Shows",
+    "aboutUs": "About Us",
+    "contactUs": "Contact Us",
+    "radioStation": "Al Nakhla FM",
+    "tagline": "Your Favorite Radio",
+    "languageSwitch": "العربية"
+  },
+  "HeroCarousel": {
+    "news": "News",
+    "readMore": "Read More",
+    "previous": "Previous",
+    "next": "Next",
+    "slide": "Slide",
+    "comments": "Comments",
+    "likes": "Likes",
+    "shares": "Shares",
+    "noNews": "No news available at the moment"
+  },
+  "BreakingNews": {
+    "title": "Breaking News",
+    "urgent": "URGENT",
+    "breaking": "Breaking",
+    "readFullDetails": "Read Full Details",
+    "allBreakingNews": "All Breaking News",
+    "tickerText": "Follow us for the latest news and live updates • Breaking news 24/7 • Al Nakhla FM - Your trusted source for news"
+  },
+  "NewsCategories": {
+    "title": "News Categories",
+    "description": "Stay informed with the latest news from around the world",
+    "trendingNews": "Trending News",
+    "localNews": "Local News",
+    "worldNews": "World News",
+    "societyCulture": "Society & Culture",
+    "viewAllNews": "View All News",
+    "exploreAllCategories": "Explore All Categories"
+  },
+  "NewsCategoriesDynamic": {
+    "title": "Latest News",
+    "description": "Stay updated with news from different categories",
+    "sports": "Sports",
+    "entertainment": "Entertainment",
+    "politics": "Politics",
+    "technology": "Technology",
+    "viewAllNews": "View All",
+    "exploreAllCategories": "Explore All News"
+  },
+  "RadioPrograms": {
+    "title": "Our Radio Programs",
+    "description": "Listen to the best programs throughout the day",
+    "live": "LIVE",
+    "host": "Host: ",
+    "time": "Time: ",
+    "listeners": "listeners",
+    "viewFullSchedule": "View Full Program Schedule"
+  },
+  "FeaturedShows": {
+    "title": "Our Shows",
+    "description": "Discover our most popular shows and programs",
+    "featured": "Featured",
+    "host": "Host: ",
+    "time": "Time: ",
+    "viewAllShows": "View All Shows"
+  },
+  "Footer": {
+    "radioStation": "Al Nakhla FM",
+    "tagline": "Your Favorite Radio",
+    "description": "We bring you the best radio programs and news 24/7. Enjoy a unique listening experience with the latest music and entertainment content.",
+    "quickLinks": "Quick Links",
+    "categories": "Categories",
+    "contactUs": "Contact Us",
+    "home": "Home",
+    "news": "News",
+    "programs": "Programs",
+    "aboutUs": "About Us",
+    "localNews": "Local News",
+    "worldNews": "World News",
+    "sports": "Sports",
+    "technology": "Technology",
+    "address": "King Fahd Road, Riyadh, Saudi Arabia",
+    "liveBroadcasting": "Live Broadcasting",
+    "allDay": "24/7"
+  },
+  "AboutPage": {
+    "pageTitle": "About Us",
+    "heroTitle": "About Us",
+    "heroDescription": "At Al Nakhla FM, we are pioneers in the world of radio broadcasting and digital media. Since our establishment, we are committed to delivering exceptional content that combines news, entertainment, and culture, striving to be the voice of the community and the window to the world.",
+    "missionTitle": "Our Mission",
+    "missionDescription": "To provide diverse and reliable radio and media content that meets the needs of our listeners, enhances community awareness, and contributes to spreading culture and knowledge. We are committed to professionalism and credibility in everything we offer, and we strive to build bridges of communication between different segments of society through diverse programs that touch their interests and aspirations.",
+    "visionTitle": "Our Vision",
+    "visionDescription": "To be the leading and most influential radio station in the region, and an advanced media platform that keeps pace with technological and digital changes. We aspire to be the first choice for listeners seeking quality media content that combines authenticity and modernity, and contributes to shaping an aware and informed public opinion.",
+    "socialTitle": "Connect With Us",
+    "socialDescription": "Follow us on social media for the latest updates, behind-the-scenes content, and exclusive interviews",
+    "facebook": "Facebook",
+    "twitter": "Twitter",
+    "instagram": "Instagram",
+    "youtube": "YouTube",
+    "tiktok": "TikTok",
+    "linkedin": "LinkedIn",
+    "timelineTitle": "Our History & Achievements",
+    "timeline": [
+      {
+        "year": "2016",
+        "title": "Foundation",
+        "description": "Al Nakhla FM was launched with a variety of programs and distinctive content."
+      },
+      {
+        "year": "2017",
+        "title": "Digital Expansion",
+        "description": "Launch of our digital platforms and smartphone apps to reach a wider audience."
+      },
+      {
+        "year": "2019",
+        "title": "Excellence Award",
+        "description": "The station won the award for Best Local Radio Station in recognition of content quality."
+      },
+      {
+        "year": "2021",
+        "title": "Advanced Studios",
+        "description": "Opening of new studios equipped with the latest radio broadcasting technologies."
+      },
+      {
+        "year": "2023",
+        "title": "Regional Expansion",
+        "description": "Expanded broadcasting coverage to include several cities and launched new strategic partnerships."
+      },
+      {
+        "year": "2025",
+        "title": "Continuous Innovation",
+        "description": "Adoption of artificial intelligence technologies in producing and distributing radio content."
+      }
+    ],
+    "teamTitle": "Our Team",
+    "teamDescription": "We are proud of our professional and distinguished team of presenters, journalists, and producers",
+    "team": [
+      {
+        "name": "Ahmed Mohammed Al-Khalili",
+        "role": "Chief Editor",
+        "image": "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop"
+      },
+      {
+        "name": "Sara Ahmed Al-Ali",
+        "role": "Programs Director",
+        "image": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop"
+      },
+      {
+        "name": "Mohammed Ali Al-Saeed",
+        "role": "News Director",
+        "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop"
+      },
+      {
+        "name": "Fatima Hassan Al-Nouri",
+        "role": "Lead Presenter",
+        "image": "https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=400&h=400&fit=crop"
+      },
+      {
+        "name": "Khalid Youssef Al-Hajjar",
+        "role": "Program Host",
+        "image": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop"
+      },
+      {
+        "name": "Noor Al-Huda Mahmoud",
+        "role": "Journalist & Reporter",
+        "image": "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop"
+      },
+      {
+        "name": "Omar Abdullah Al-Mutairi",
+        "role": "Technical Director",
+        "image": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop"
+      },
+      {
+        "name": "Layla Hussein Al-Otaibi",
+        "role": "Content Producer",
+        "image": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=400&fit=crop"
+      }
+    ],
+    "facilitiesTitle": "Our Newsroom & Achievements",
+    "facilitiesDescription": "We operate through studios equipped with the latest global technologies to provide the best radio experience. Our newsrooms are equipped with advanced live broadcasting systems that enable us to cover events in real-time, and our team works around the clock to ensure reliable content reaches you."
+  },
+  "ContactPage": {
+    "pageTitle": "Contact Us",
+    "heroTitle": "Contact Us",
+    "heroDescription": "We're here to listen to you. Reach out for any inquiries or feedback",
+    "formTitle": "Send Us a Message",
+    "formDescription": "Fill out the form below and we'll get back to you as soon as possible",
+    "namePlaceholder": "Full Name",
+    "emailPlaceholder": "Email Address",
+    "phonePlaceholder": "Phone Number",
+    "subjectPlaceholder": "Subject",
+    "messagePlaceholder": "Write your message here...",
+    "submitButton": "Send Message",
+    "contactInfoTitle": "Contact Information",
+    "addressLabel": "Address",
+    "addressValue": "Al-Mansour, Al-Karkh, Baghdad, Iraq",
+    "phoneLabel": "Phone",
+    "phoneValue": "+964 770 123 4567",
+    "emailLabel": "Email",
+    "emailValue": "info@alnakhla.fm",
+    "hoursLabel": "Business Hours",
+    "hoursValue": "Sunday - Thursday: 9:00 AM - 6:00 PM",
+    "locationTitle": "Our Location"
+  },
+  "RadioPage": {
+    "pageTitle": "Live Radio",
+    "noActiveProgram": "No Live Broadcast",
+    "noActiveProgramDescription": "We're currently off-air. Check back soon for our next live program!",
+    "checkSchedule": "View Program Schedule",
+    "nowPlaying": "Now Playing",
+    "hosted": "Hosted by",
+    "listeners": "listeners",
+    "joinBroadcast": "Join Live Broadcast",
+    "leaveBroadcast": "Leave Broadcast",
+    "liveBadge": "LIVE",
+    "broadcasting": "Broadcasting",
+    "volumeControl": "Volume Control"
+  },
+  "News": {
+    "title": "News",
+    "description": "Stay updated with the most important news and developments",
+    "subtitle": "Stay updated with the most important news and developments from around the world",
+    "searchPlaceholder": "Search for news...",
+    "categories": "Categories",
+    "allCategories": "All Categories",
+    "featured": "Featured",
+    "featuredOnly": "Featured Only",
+    "sortNewest": "Newest First",
+    "sortOldest": "Oldest First",
+    "sortMostViewed": "Most Viewed",
+    "sortLeastViewed": "Least Viewed",
+    "sortTitleAZ": "Title A-Z",
+    "sortTitleZA": "Title Z-A",
+    "showingResults": "Showing {from} to {to} of {total} results",
+    "noNewsFound": "No news found",
+    "tryDifferentFilters": "Try adjusting your search or filters",
+    "clearFilters": "Clear All Filters",
+    "previous": "Previous",
+    "next": "Next",
+    "dateFrom": "From",
+    "dateTo": "To"
+  },
+  "NewsDetail": {
+    "backToNews": "Back to News",
+    "views": "views",
+    "shareArticle": "Share this article",
+    "relatedNews": "Related News"
+  },
+  "NewsPage": {
+    "pageTitle": "News",
+    "heroTitle": "Latest News",
+    "heroDescription": "Stay updated with the most important news and developments from around the world",
+    "searchPlaceholder": "Search for news...",
+    "filterTitle": "Filter News",
+    "categoryFilter": "News Categories",
+    "dateFilter": "Time Period",
+    "clearFilters": "Clear Filters",
+    "toggleFilters": "Show Filters",
+    "resultsCount": "{count} results found",
+    "resultsFound": "results found",
+    "featuredNews": "Featured News",
+    "allNews": "All News",
+    "readMore": "Read More",
+    "noResults": "No news found",
+    "noResultsDescription": "Try adjusting your filters or search query"
+  },
+  "ShowsPage": {
+    "pageTitle": "Our Shows",
+    "heroTitle": "Our Shows",
+    "heroDescription": "Discover our diverse radio programs and engaging content throughout the day",
+    "filterByCategory": "Filter by Category",
+    "live": "LIVE",
+    "liveNow": "LIVE NOW",
+    "listeners": "listeners",
+    "viewDetails": "View Details",
+    "hostedBy": "Hosted by",
+    "airTime": "Air Time",
+    "days": "Days",
+    "aboutShow": "About the Show",
+    "contactInfo": "Contact & Participation",
+    "callUs": "Call us at:",
+    "whatsapp": "WhatsApp:",
+    "favorite": "Favorite",
+    "share": "Share",
+    "noShows": "No Shows Found",
+    "noShowsDescription": "Check back later for new shows",
+    "todayShows": "Today's Shows",
+    "onAirToday": "Broadcasting today on Al Nakhla FM",
+    "noShowsToday": "No shows scheduled for today",
+    "selectDay": "Browse by Day",
+    "showsFor": "Shows for",
+    "noShowsForDay": "No shows scheduled for this day",
+    "allShows": "All Shows",
+    "page": "Page",
+    "of": "of",
+    "previous": "Previous",
+    "next": "Next",
+    "sunday": "Sunday",
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "saturday": "Saturday"
+  },
+  "ReelsPage": {
+    "pageTitle": "Reels",
+    "heroTitle": "Watch Our Reels",
+    "heroDescription": "Discover short videos and exclusive content from Al Nakhla FM",
+    "views": "views",
+    "likes": "likes",
+    "share": "Share",
+    "copyLink": "Copy Link",
+    "linkCopied": "Copied!",
+    "close": "Close",
+    "noReels": "No Reels Found",
+    "noReelsDescription": "Check back later for new content",
+    "loading": "Loading...",
+    "sortBy": "Sort by",
+    "newest": "Newest",
+    "oldest": "Oldest",
+    "mostViewed": "Most Viewed",
+    "mostLiked": "Most Liked",
+    "searchPlaceholder": "Search reels...",
+    "by": "By",
+    "page": "Page",
+    "of": "of",
+    "previous": "Previous",
+    "next": "Next",
+    "duration": "Duration",
+    "fileSize": "File Size"
+  }
+}
