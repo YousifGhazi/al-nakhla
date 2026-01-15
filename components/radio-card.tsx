@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 
 const FALLBACK_IMAGE =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect fill='%231f2937' width='200' height='200'/%3E%3Ccircle cx='100' cy='80' r='35' fill='%234b5563'/%3E%3Cpath d='M100 60 L100 100 M80 80 L120 80' stroke='%236b7280' stroke-width='6' stroke-linecap='round'/%3E%3Crect x='50' y='140' width='100' height='8' rx='4' fill='%234b5563'/%3E%3Crect x='65' y='155' width='70' height='6' rx='3' fill='%23374151'/%3E%3C/svg%3E";
@@ -65,11 +66,14 @@ function RadioCard({
         <div className="relative z-10 flex flex-col md:flex-row-reverse p-8 md:py-32 md:px-24 gap-10 md:gap-16">
           {/* Square Image - Small and fixed size */}
           <div className="relative shrink-0 w-52 h-52 md:w-80 md:h-80 mx-auto md:mx-0">
-            <img
+            <Image
               src={imageError ? FALLBACK_IMAGE : imageUrl}
               alt={title}
               className="w-full h-full object-cover "
               onError={() => setImageError(true)}
+              width={320}
+              height={320}
+              priority
             />
             {/* Live Badge on image */}
             {isLive && (

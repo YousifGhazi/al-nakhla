@@ -1,11 +1,8 @@
 import { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import RadioCard from "@/components/radio-card";
 import ShareButtons from "@/components/news/share-buttons";
-
-const API_BASE_URL = "http://168.231.101.52:8080/api";
 
 interface RadioPageProps {
   params: Promise<{ locale: string }>;
@@ -33,7 +30,6 @@ export async function generateMetadata({
   params,
 }: RadioPageProps): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "RadioPage" });
 
   const siteName = locale === "ar" ? "النخلة إف إم" : "Al Nakhla FM";
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://alnakhlafm.com";
@@ -81,7 +77,6 @@ export async function generateMetadata({
 
 export default async function RadioPage({ params }: RadioPageProps) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "RadioPage" });
   const isArabic = locale === "ar";
 
   const currentTitle =

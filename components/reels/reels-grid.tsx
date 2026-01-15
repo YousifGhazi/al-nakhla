@@ -14,7 +14,6 @@ import {
   ChevronDown,
   ChevronLeft,
   ChevronRight,
-  Loader2,
   Copy,
   Check,
   Film,

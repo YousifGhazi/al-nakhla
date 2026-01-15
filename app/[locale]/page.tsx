@@ -2,7 +2,6 @@ import Header from "@/components/header";
 import HeroCarousel from "@/components/hero-carousel";
 import BreakingNews from "@/components/breaking-news";
 import NewsCategoriesDynamic from "@/components/news-categories-dynamic";
-import RadioPrograms from "@/components/radio-programs";
 import FeaturedShows from "@/components/featured-shows";
 import Footer from "@/components/footer";
 import { News } from "@/types/news";

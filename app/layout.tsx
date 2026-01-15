@@ -1,11 +1,5 @@
 import type { Metadata } from "next";
-import { Cairo } from "next/font/google";
 import "./globals.css";
-
-const cairo = Cairo({
-  variable: "--font-cairo",
-  subsets: ["latin", "arabic"],
-});
 
 //FIXME: Update metadata contents
 export const metadata: Metadata = {

@@ -74,7 +74,7 @@ export default function AboutPage() {
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
               {t("heroTitle")}
             </h1>
-            <p className="text-xl text-white/80">{t("heroDescription")}</p>
+            <p className="text-xl max-w-[60ch] mx-auto text-white/80">{t("heroDescription")}</p>
           </div>
         </div>
         <section className="py-12 md:p-16 bg-gray-50">
@@ -125,42 +125,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Timeline Section - Professional layout */}
-        <section className="py-20 md:py-32 bg-white border-t border-gray-100">
-          <div className="container mx-auto px-4">
-            <div className="max-w-7xl mx-auto">
-              {/* Section Header */}
-              <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                  {t("timelineTitle")}
-                </h2>
-                <div className="w-20 h-1 bg-primary-500 mx-auto" />
-              </div>
 
-              {/* Timeline Grid */}
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {timeline.map((item, index) => (
-                  <div
-                    key={index}
-                    className="bg-gray-50 rounded-lg p-8 hover:shadow-md transition-all duration-300 border-2 border-primary-500"
-                  >
-                    <div className="mb-5">
-                      <span className="inline-block text-2xl font-bold text-primary-500 mb-2">
-                        {item.year}
-                      </span>
-                    </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-3">
-                      {item.title}
-                    </h3>
-                    <p className="text-gray-600 leading-relaxed">
-                      {item.description}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* Social Media Section */}
         <section className="py-20 md:py-32 bg-gray-50 border-t border-gray-100">
@@ -300,43 +265,7 @@ export default function AboutPage() {
                 </p>
               </div>
 
-              {/* Images Grid */}
-              <div className="grid md:grid-cols-2 gap-8">
-                <div className="group relative h-96 lg:h-[500px] rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-500">
-                  <Image
-                    src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&h=600&fit=crop"
-                    alt="Studio"
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-8">
-                    <div className="flex items-center gap-3">
-                      <Radio className="w-6 h-6 text-red-400" />
-                      <span className="text-xl font-bold text-white">
-                        Broadcasting Studio
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div className="group relative h-96 lg:h-[500px] rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-500">
-                  <Image
-                    src="https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=800&h=600&fit=crop"
-                    alt="Newsroom"
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-8">
-                    <div className="flex items-center gap-3">
-                      <Radio className="w-6 h-6 text-red-400" />
-                      <span className="text-xl font-bold text-white">
-                        Newsroom
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+
             </div>
           </div>
         </section>

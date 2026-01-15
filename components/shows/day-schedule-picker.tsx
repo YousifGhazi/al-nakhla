@@ -11,7 +11,7 @@ import {
   ChevronLeft,
 } from "lucide-react";
 import ShowImage from "@/components/shows/show-image";
-import { Show, DayOfWeek, ShowScheduleResponse } from "@/types/shows";
+import { DayOfWeek, ShowScheduleResponse } from "@/types/shows";
 
 interface DaySchedulePickerProps {
   schedule: ShowScheduleResponse["data"];
@@ -52,8 +52,7 @@ export default function DaySchedulePicker({
 
   const selectedShows = schedule[selectedDay] || [];
 
-  const ArrowLeft = isArabic ? ChevronRight : ChevronLeft;
-  const ArrowRight = isArabic ? ChevronLeft : ChevronRight;
+  const Arrow = isArabic ? ChevronLeft : ChevronRight;
 
   return (
     <div className="space-y-6">
@@ -154,7 +153,7 @@ export default function DaySchedulePicker({
 
                 {/* Arrow */}
                 <div className="self-center">
-                  <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-primary-600 transition-colors" />
+                  <Arrow className="w-5 h-5 text-gray-400 group-hover:text-primary-600 transition-colors" />
                 </div>
               </Link>
             ))}

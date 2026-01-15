@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Share2, Facebook, Link as LinkIcon, Check } from "lucide-react";
 
 interface ShareButtonsProps {
@@ -17,16 +17,10 @@ export default function ShareButtons({
   translations: t,
 }: ShareButtonsProps) {
   const [copied, setCopied] = useState(false);
-  const [currentUrl, setCurrentUrl] = useState("");
-
-  useEffect(() => {
-    // Get the full URL on client side
-    setCurrentUrl(window.location.href);
-  }, []);
 
   const handleCopyLink = async () => {
     try {
-      await navigator.clipboard.writeText(currentUrl);
+      await navigator.clipboard.writeText(window.location.href);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (error) {
@@ -36,14 +30,14 @@ export default function ShareButtons({
 
   const handleFacebookShare = () => {
     const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-      currentUrl
+      window.location.href
     )}`;
     window.open(facebookUrl, "_blank", "width=600,height=400");
   };
 
   const handleXShare = () => {
     const xUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(
-      currentUrl
+      window.location.href
     )}&text=${encodeURIComponent(title)}`;
     window.open(xUrl, "_blank", "width=600,height=400");
   };

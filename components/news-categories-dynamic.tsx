@@ -1,7 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { Newspaper, ArrowRight, Eye, ArrowLeft } from "lucide-react";
-import { News } from "@/types/news";
 import NewsImage from "@/components/news-image";
 import { HomeCategory } from "@/app/[locale]/page";
 
