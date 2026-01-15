@@ -593,7 +593,7 @@ export default function ReelsGrid({
             >
               {/* Video Section */}
               <div className="flex-1 lg:flex-none flex items-center justify-center p-4 lg:p-0">
-                <div className="relative w-full max-w-md lg:w-80 xl:w-96 h-full max-h-[60vh] lg:max-h-[85vh] aspect-9/16 bg-gray-900 rounded-2xl overflow-hidden shadow-2xl">
+                <div className="relative w-full max-w-md lg:w-80 xl:w-96 h-full max-h-[60vh] lg:max-h-[85vh] aspect-9/16 bg-primary-950 rounded-2xl overflow-hidden shadow-2xl">
                   <video
                     key={selectedReel.id}
                     src={selectedReel.stream_url}
@@ -607,7 +607,7 @@ export default function ReelsGrid({
               </div>
 
               {/* Info Sidebar - Compact on large screens */}
-              <div className="w-full lg:w-72 xl:w-80 lg:max-h-[85vh] bg-gray-900 lg:bg-gray-900/95 lg:backdrop-blur-sm lg:rounded-2xl p-4 lg:p-5 overflow-y-auto flex flex-col">
+              <div className="w-full lg:w-72 xl:w-80 lg:max-h-[85vh] bg-primary-950 lg:bg-primary-950/95 lg:backdrop-blur-sm lg:rounded-2xl p-4 lg:p-5 overflow-y-auto flex flex-col">
                 {/* Title */}
                 <h2 className="text-lg lg:text-xl font-bold text-white mb-2">
                   {selectedReel.title}
@@ -621,7 +621,7 @@ export default function ReelsGrid({
                 )}
 
                 {/* Author Section */}
-                <div className="flex items-center gap-2 mb-4 pb-4 border-b border-gray-700">
+                <div className="flex items-center gap-2 mb-4 pb-4 border-b border-primary-800">
                   {selectedReel.author.avatar_url ? (
                     <Image
                       src={selectedReel.author.avatar_url}
@@ -645,14 +645,14 @@ export default function ReelsGrid({
 
                 {/* Stats Grid */}
                 <div className="grid grid-cols-2 gap-3 mb-4">
-                  <div className="bg-gray-800 rounded-lg p-3 text-center">
+                  <div className="bg-primary-900 rounded-lg p-3 text-center">
                     <Eye className="w-5 h-5 text-primary-700 mx-auto mb-1" />
                     <p className="text-white font-bold text-sm">
                       {formatNumber(selectedReel.views_count, locale)}
                     </p>
                     <p className="text-gray-400 text-xs">{t.views}</p>
                   </div>
-                  <div className="bg-gray-800 rounded-lg p-3 text-center">
+                  <div className="bg-primary-900 rounded-lg p-3 text-center">
                     <Heart className="w-5 h-5 text-red-500 mx-auto mb-1" />
                     <p className="text-white font-bold text-sm">
                       {formatNumber(selectedReel.likes_count, locale)}
@@ -664,7 +664,7 @@ export default function ReelsGrid({
                 {/* Video Info */}
                 {(selectedReel.duration_formatted ||
                   selectedReel.file_size_formatted) && (
-                  <div className="bg-gray-800 rounded-lg p-3 mb-4 space-y-1.5">
+                  <div className="bg-primary-900 rounded-lg p-3 mb-4 space-y-1.5">
                     {selectedReel.duration_formatted && (
                       <div className="flex items-center justify-between text-xs">
                         <span className="text-gray-400 flex items-center gap-1.5">
@@ -704,7 +704,7 @@ export default function ReelsGrid({
                     className={`w-full flex items-center justify-center gap-2 py-2.5 rounded-lg transition-colors font-medium text-sm ${
                       linkCopied
                         ? "bg-green-600 text-white"
-                        : "bg-gray-700 text-white hover:bg-gray-600"
+                        : "bg-primary-800 text-white hover:bg-primary-700"
                     }`}
                   >
                     {linkCopied ? (

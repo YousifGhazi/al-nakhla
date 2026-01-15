@@ -1,8 +1,15 @@
-import { useTranslations, useLocale } from "next-intl";
+import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
-import { useState, useEffect } from "react";
 import RadioCard from "@/components/radio-card";
+import ShareButtons from "@/components/news/share-buttons";
+
+const API_BASE_URL = "http://168.231.101.52:8080/api";
+
+interface RadioPageProps {
+  params: Promise<{ locale: string }>;
+}
 
 // Static data for demo
 const mockProgram = {
@@ -22,20 +29,69 @@ const mockProgram = {
 // Toggle this to test both states
 const HAS_ACTIVE_PROGRAM = true;
 
-export default function RadioPage() {
-  const t = useTranslations("RadioPage");
-  const locale = useLocale();
+export async function generateMetadata({
+  params,
+}: RadioPageProps): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "RadioPage" });
+
+  const siteName = locale === "ar" ? "النخلة إف إم" : "Al Nakhla FM";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://alnakhlafm.com";
+  const pageUrl = `${siteUrl}/${locale}/radio`;
+  const title = locale === "ar" ? "الراديو المباشر" : "Live Radio";
+  const description =
+    mockProgram.description[locale as keyof typeof mockProgram.description] ||
+    mockProgram.description.en;
+  const imageUrl = `${siteUrl}/images/radio.jpeg`;
+
+  return {
+    title: `${title} | ${siteName}`,
+    description,
+    openGraph: {
+      title: `${title} | ${siteName}`,
+      description,
+      url: pageUrl,
+      type: "website",
+      siteName,
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+      locale: locale === "ar" ? "ar_SA" : "en_US",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} | ${siteName}`,
+      description,
+      images: [imageUrl],
+    },
+    alternates: {
+      canonical: pageUrl,
+      languages: {
+        ar: `${siteUrl}/ar/radio`,
+        en: `${siteUrl}/en/radio`,
+      },
+    },
+  };
+}
+
+export default async function RadioPage({ params }: RadioPageProps) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "RadioPage" });
+  const isArabic = locale === "ar";
 
   const currentTitle =
     mockProgram.title[locale as keyof typeof mockProgram.title] ||
     mockProgram.title.en;
 
-  // Simulate listener count changes
-
   return (
     <>
       <Header />
-      <main className="  py-12 px-4">
+      <main className="py-12 px-4">
         <div className="max-w-7xl mx-auto">
           <RadioCard
             title={currentTitle}
@@ -47,6 +103,18 @@ export default function RadioPage() {
             imageUrl="/images/radio.jpeg"
             isLive={HAS_ACTIVE_PROGRAM}
           />
+
+          {/* Share Section */}
+          <div className="mt-8 bg-white rounded-2xl shadow-lg p-6 md:p-8">
+            <ShareButtons
+              title={currentTitle}
+              translations={{
+                shareArticle: isArabic ? "مشاركة الراديو" : "Share Radio",
+                copyLink: isArabic ? "نسخ الرابط" : "Copy Link",
+                linkCopied: isArabic ? "تم النسخ!" : "Link Copied!",
+              }}
+            />
+          </div>
         </div>
       </main>
       <Footer />

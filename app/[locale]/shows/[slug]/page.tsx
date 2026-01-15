@@ -5,6 +5,7 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 import Image from "next/image";
 import Link from "next/link";
+import ShareButtons from "@/components/news/share-buttons";
 import {
   Radio,
   Clock,
@@ -13,7 +14,6 @@ import {
   MessageCircle,
   ArrowLeft,
   ArrowRight,
-  Share2,
   Heart,
   User,
   ExternalLink,
@@ -56,8 +56,16 @@ export async function generateMetadata({
     };
   }
 
-  const t = await getTranslations({ locale, namespace: "ShowsPage" });
   const siteName = locale === "ar" ? "النخلة إف إم" : "Al Nakhla FM";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://alnakhlafm.com";
+  const pageUrl = `${siteUrl}/${locale}/shows/${slug}`;
+
+  // Ensure image URL is absolute
+  const imageUrl = show.cover_url?.startsWith("http")
+    ? show.cover_url
+    : show.cover_url
+    ? `${siteUrl}${show.cover_url}`
+    : undefined;
 
   return {
     title: `${show.title} | ${siteName}`,
@@ -65,21 +73,32 @@ export async function generateMetadata({
     openGraph: {
       title: show.title,
       description: show.about,
+      url: pageUrl,
       type: "website",
       siteName,
-      images: show.cover_url ? [{ url: show.cover_url }] : [],
+      images: imageUrl
+        ? [
+            {
+              url: imageUrl,
+              width: 1200,
+              height: 630,
+              alt: show.title,
+            },
+          ]
+        : [],
+      locale: locale === "ar" ? "ar_SA" : "en_US",
     },
     twitter: {
       card: "summary_large_image",
       title: show.title,
       description: show.about,
-      images: show.cover_url ? [show.cover_url] : [],
+      images: imageUrl ? [imageUrl] : [],
     },
     alternates: {
-      canonical: `/${locale}/shows/${slug}`,
+      canonical: pageUrl,
       languages: {
-        ar: `/ar/shows/${slug}`,
-        en: `/en/shows/${slug}`,
+        ar: `${siteUrl}/ar/shows/${slug}`,
+        en: `${siteUrl}/en/shows/${slug}`,
       },
     },
   };
@@ -371,11 +390,17 @@ export default async function ShowDetailPage({ params }: ShowDetailPageProps) {
                   <Heart className="w-5 h-5" />
                   {t("favorite")}
                 </button>
-                <button className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 rounded-xl font-medium transition-colors">
-                  <Share2 className="w-5 h-5" />
-                  {t("share")}
-                </button>
               </div>
+
+              {/* Share Section */}
+              <ShareButtons
+                title={show.title}
+                translations={{
+                  shareArticle: t("share"),
+                  copyLink: isArabic ? "نسخ الرابط" : "Copy Link",
+                  linkCopied: isArabic ? "تم النسخ!" : "Link Copied!",
+                }}
+              />
             </div>
           </div>
         </div>

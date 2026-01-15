@@ -20,18 +20,19 @@ interface HeroCarouselProps {
 
 export default function HeroCarousel({ news }: HeroCarouselProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
   const locale = useLocale();
   const isArabic = locale === "ar";
   const t = useTranslations("HeroCarousel");
 
   useEffect(() => {
-    if (news.length === 0) return;
+    if (news.length === 0 || isHovered) return;
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % news.length);
     }, 5000);
 
     return () => clearInterval(timer);
-  }, [news.length]);
+  }, [news.length, isHovered]);
 
   const goToSlide = (index: number) => {
     setCurrentSlide(index);
@@ -54,7 +55,11 @@ export default function HeroCarousel({ news }: HeroCarouselProps) {
   }
 
   return (
-    <section className="relative w-full h-[60vh] sm:h-[70vh] md:h-[calc(100vh-80px)] bg-gray-900 overflow-hidden">
+    <section
+      className="relative w-full h-[60vh] sm:h-[70vh] md:h-[calc(100vh-80px)] bg-gray-900 overflow-hidden"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       {/* Main Carousel */}
       <div className="relative w-full h-full">
         {news.map((item, index) => (
@@ -77,9 +82,9 @@ export default function HeroCarousel({ news }: HeroCarouselProps) {
             </div>
 
             {/* Content */}
-            <div className="relative h-full container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 flex items-center">
+            <div className="relative h-full container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 flex items-center z-10">
               {/* Main Content - Center Left */}
-              <div className="max-w-2xl">
+              <div className="max-w-2xl pointer-events-auto">
                 {/* Date and Time - Above Title */}
                 <div className="text-white/80 mb-2 sm:mb-3 flex items-center gap-2">
                   <Clock className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -131,7 +136,7 @@ export default function HeroCarousel({ news }: HeroCarouselProps) {
                 {/* Read More Button */}
                 <Link
                   href={`/${locale}/news/${item.slug}`}
-                  className="inline-block px-5 sm:px-6 md:px-8 py-2 sm:py-2.5 md:py-3 border-2 border-white text-white text-sm sm:text-base font-semibold rounded-full hover:bg-white hover:text-black transition-all duration-300"
+                  className="inline-flex items-center justify-center px-5 sm:px-6 md:px-8 py-2 sm:py-2.5 md:py-3 border-2 border-white text-white text-sm sm:text-base font-semibold rounded-full hover:bg-white hover:text-black transition-all duration-300 cursor-pointer touch-manipulation relative z-20"
                 >
                   {t("readMore")}
                 </Link>
@@ -144,7 +149,7 @@ export default function HeroCarousel({ news }: HeroCarouselProps) {
       {/* Navigation Arrows */}
       <button
         onClick={goToPrevious}
-        className="absolute left-2 sm:left-4 md:left-8 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 flex items-center justify-center bg-black/50 hover:bg-black/70 text-white rounded-full transition-all duration-300 z-10"
+        className="absolute left-2 sm:left-4 md:left-8 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 flex items-center justify-center bg-black/50 hover:bg-black/70 text-white rounded-full transition-all duration-300 z-[15] pointer-events-auto"
         aria-label={t("previous")}
       >
         <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8" />
@@ -152,14 +157,14 @@ export default function HeroCarousel({ news }: HeroCarouselProps) {
 
       <button
         onClick={goToNext}
-        className="absolute right-2 sm:right-4 md:right-8 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 flex items-center justify-center bg-black/50 hover:bg-black/70 text-white rounded-full transition-all duration-300 z-10"
+        className="absolute right-2 sm:right-4 md:right-8 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 flex items-center justify-center bg-black/50 hover:bg-black/70 text-white rounded-full transition-all duration-300 z-[15] pointer-events-auto"
         aria-label={t("next")}
       >
         <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8" />
       </button>
 
       {/* Dots Navigation - Bottom Center with Thicker Background */}
-      <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 flex gap-4 sm:gap-6 md:gap-10 px-4 sm:px-6 md:px-9 py-2 sm:py-2.5 md:py-3 bg-black/40 backdrop-blur-xs rounded-full z-10">
+      <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 flex gap-4 sm:gap-6 md:gap-10 px-4 sm:px-6 md:px-9 py-2 sm:py-2.5 md:py-3 bg-black/40 backdrop-blur-xs rounded-full z-[15] pointer-events-auto">
         {news.map((_, index) => (
           <button
             key={index}

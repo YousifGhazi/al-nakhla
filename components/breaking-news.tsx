@@ -46,7 +46,10 @@ export default function BreakingNews({ news }: BreakingNewsProps) {
   };
 
   // Format views count
-  const formatViews = (count: number) => {
+  const formatViews = (count?: number) => {
+    if (count === undefined || count === null) {
+      return "0";
+    }
     if (count >= 1000) {
       return `${(count / 1000).toFixed(1)}K`;
     }

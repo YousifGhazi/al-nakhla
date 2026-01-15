@@ -207,7 +207,9 @@
     "emailValue": "info@alnakhla.fm",
     "hoursLabel": "Business Hours",
     "hoursValue": "Sunday - Thursday: 9:00 AM - 6:00 PM",
-    "locationTitle": "Our Location"
+    "locationTitle": "Our Location",
+    "sendingButton": "Sending...",
+    "successMessage": "Your message has been sent successfully!"
   },
   "RadioPage": {
     "pageTitle": "Live Radio",
@@ -251,7 +253,9 @@
     "backToNews": "Back to News",
     "views": "views",
     "shareArticle": "Share this article",
-    "relatedNews": "Related News"
+    "relatedNews": "Related News",
+    "copyLink": "Copy Link",
+    "linkCopied": "Link Copied!"
   },
   "NewsPage": {
     "pageTitle": "News",

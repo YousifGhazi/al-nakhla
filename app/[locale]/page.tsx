@@ -5,47 +5,51 @@ import NewsCategoriesDynamic from "@/components/news-categories-dynamic";
 import RadioPrograms from "@/components/radio-programs";
 import FeaturedShows from "@/components/featured-shows";
 import Footer from "@/components/footer";
-import { News, TodayNewsResponse } from "@/types/news";
+import { News } from "@/types/news";
 import { Show, ShowListResponse } from "@/types/shows";
 
 const API_BASE_URL = "http://168.231.101.52:8080/api";
 
-async function getTodayNews(limit: number = 5): Promise<News[]> {
+export interface HomeCategory {
+  id: number;
+  name: string;
+  slug: string;
+  description: string;
+  news: News[];
+}
+
+interface HomeDataResponse {
+  success: boolean;
+  data: {
+    top_news: News[];
+    breaking_news: News[];
+    categories: HomeCategory[];
+  };
+}
+
+async function getHomeData(): Promise<{
+  topNews: News[];
+  breakingNews: News[];
+  categories: HomeCategory[];
+}> {
   try {
-    const response = await fetch(`${API_BASE_URL}/news/top?limit=${limit}`, {
+    const response = await fetch(`${API_BASE_URL}/home`, {
       next: { revalidate: 60 },
     });
 
     if (!response.ok) {
-      throw new Error("Failed to fetch today news");
+      throw new Error("Failed to fetch home data");
     }
 
-    const data: TodayNewsResponse = await response.json();
-    return data.data;
+    const data: HomeDataResponse = await response.json();
+    return {
+      topNews: data.data.top_news || [],
+      breakingNews: data.data.breaking_news || [],
+      categories: data.data.categories || [],
+    };
   } catch (error) {
-    console.error("Error fetching today news:", error);
-    return [];
-  }
-}
-
-async function getBreakingNews(): Promise<News[]> {
-  try {
-    const response = await fetch(
-      `${API_BASE_URL}/news?page=1&per_page=3&category=breaking-news&sort=-published_at`,
-      {
-        next: { revalidate: 60 },
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error("Failed to fetch breaking news");
-    }
-
-    const data = await response.json();
-    return data.data || [];
-  } catch (error) {
-    console.error("Error fetching breaking news:", error);
-    return [];
+    console.error("Error fetching home data:", error);
+    return { topNews: [], breakingNews: [], categories: [] };
   }
 }
 
@@ -76,20 +80,21 @@ interface HomePageProps {
 
 export default async function HomePage({ params }: HomePageProps) {
   const { locale } = await params;
-  const [todayNews, breakingNews, featuredShows] = await Promise.all([
-    getTodayNews(5),
-    getBreakingNews(),
+  const [homeData, featuredShows] = await Promise.all([
+    getHomeData(),
     getFeaturedShows(4),
   ]);
+
+  const { topNews, breakingNews, categories } = homeData;
 
   return (
     <>
       <Header />
       <main>
-        <HeroCarousel news={todayNews} />
+        <HeroCarousel news={topNews} />
         <BreakingNews news={breakingNews} />
         <FeaturedShows shows={featuredShows} />
-        <NewsCategoriesDynamic locale={locale} />
+        <NewsCategoriesDynamic locale={locale} categories={categories} />
       </main>
       <Footer />
     </>

@@ -207,7 +207,9 @@
     "emailValue": "info@alnakhla.fm",
     "hoursLabel": "ساعات العمل",
     "hoursValue": "الأحد - الخميس: 9:00 ص - 6:00 م",
-    "locationTitle": "موقعنا"
+    "locationTitle": "موقعنا",
+    "sendingButton": "جارٍ الإرسال...",
+    "successMessage": "تم إرسال رسالتك بنجاح!"
   },
   "RadioPage": {
     "pageTitle": "الراديو المباشر",
@@ -251,7 +253,9 @@
     "backToNews": "العودة للأخبار",
     "views": "مشاهدة",
     "shareArticle": "شارك هذا المقال",
-    "relatedNews": "أخبار ذات صلة"
+    "relatedNews": "أخبار ذات صلة",
+    "copyLink": "نسخ الرابط",
+    "linkCopied": "تم نسخ الرابط!"
   },
   "NewsPage": {
     "pageTitle": "الأخبار",

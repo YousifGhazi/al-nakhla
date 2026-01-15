@@ -2,9 +2,19 @@
 
 import { useTranslations } from "next-intl";
 import Header from "@/components/header";
-import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import {
+  MapPin,
+  Phone,
+  Mail,
+  Clock,
+  Loader2,
+  CheckCircle,
+  XCircle,
+} from "lucide-react";
 import { useState } from "react";
 import Footer from "@/components/footer";
+
+const API_BASE_URL = "http://168.231.101.52:8080/api";
 
 export default function ContactPage() {
   const t = useTranslations("ContactPage");
@@ -15,11 +25,54 @@ export default function ContactPage() {
     subject: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<
+    "idle" | "success" | "error"
+  >("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log(formData);
+    setIsSubmitting(true);
+    setSubmitStatus("idle");
+    setErrorMessage("");
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/contact`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => null);
+        throw new Error(errorData?.message || "Failed to send message");
+      }
+
+      setSubmitStatus("success");
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        subject: "",
+        message: "",
+      });
+
+      // Reset success message after 5 seconds
+      setTimeout(() => setSubmitStatus("idle"), 5000);
+    } catch (error) {
+      setSubmitStatus("error");
+      setErrorMessage(
+        error instanceof Error ? error.message : "An error occurred"
+      );
+
+      // Reset error message after 5 seconds
+      setTimeout(() => setSubmitStatus("idle"), 5000);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (
@@ -147,13 +200,42 @@ export default function ContactPage() {
                       </div>
                     </div>
 
+                    {/* Status Messages */}
+                    {submitStatus === "success" && (
+                      <div className="mt-4 p-4 bg-green-50 border-2 border-green-200 rounded-lg flex items-center gap-3">
+                        <CheckCircle className="w-5 h-5 text-green-600 shrink-0" />
+                        <p className="text-sm text-green-800 font-medium">
+                          {t("successMessage") || "Message sent successfully!"}
+                        </p>
+                      </div>
+                    )}
+
+                    {submitStatus === "error" && (
+                      <div className="mt-4 p-4 bg-red-50 border-2 border-red-200 rounded-lg flex items-center gap-3">
+                        <XCircle className="w-5 h-5 text-red-600 shrink-0" />
+                        <p className="text-sm text-red-800 font-medium">
+                          {errorMessage ||
+                            t("errorMessage") ||
+                            "Failed to send message. Please try again."}
+                        </p>
+                      </div>
+                    )}
+
                     {/* Submit Button */}
                     <div className="mt-6 pt-4 border-t border-gray-100">
                       <button
                         type="submit"
-                        className="w-full px-8 py-4 bg-primary-600 text-white font-bold rounded-lg hover:bg-red-700 active:bg-red-800 transition-colors uppercase tracking-wide text-sm"
+                        disabled={isSubmitting}
+                        className="w-full px-8 py-4 bg-primary-600 text-white font-bold rounded-lg hover:bg-red-700 active:bg-red-800 transition-colors uppercase tracking-wide text-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                       >
-                        {t("submitButton")}
+                        {isSubmitting ? (
+                          <>
+                            <Loader2 className="w-5 h-5 animate-spin" />
+                            <span>{t("sendingButton") || "Sending..."}</span>
+                          </>
+                        ) : (
+                          <span>{t("submitButton")}</span>
+                        )}
                       </button>
                     </div>
                   </form>

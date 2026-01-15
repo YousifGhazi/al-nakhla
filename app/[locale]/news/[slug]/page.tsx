@@ -5,6 +5,7 @@ import Link from "next/link";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import NewsImage from "@/components/news-image";
+import ShareButtons from "@/components/news/share-buttons";
 import { News } from "@/types/news";
 import {
   Clock,
@@ -13,9 +14,6 @@ import {
   Tag,
   ArrowLeft,
   ArrowRight,
-  Share2,
-  Facebook,
-  Twitter,
 } from "lucide-react";
 
 const API_BASE_URL = "http://168.231.101.52:8080/api";
@@ -81,17 +79,50 @@ export async function generateMetadata({
     };
   }
 
+  const siteName = locale === "ar" ? "النخلة إف إم" : "Al Nakhla FM";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://alnakhlafm.com";
+  const pageUrl = `${siteUrl}/${locale}/news/${slug}`;
+  
+  // Ensure image URL is absolute
+  const imageUrl = news.cover_url?.startsWith("http") 
+    ? news.cover_url 
+    : news.cover_url 
+      ? `${siteUrl}${news.cover_url}` 
+      : undefined;
+
   return {
-    title: news.title,
+    title: `${news.title} | ${siteName}`,
     description: news.description,
     openGraph: {
       title: news.title,
       description: news.description,
-      images: news.cover_url ? [news.cover_url] : [],
-      locale: locale,
+      url: pageUrl,
+      siteName,
+      images: imageUrl ? [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: news.title,
+        },
+      ] : [],
+      locale: locale === "ar" ? "ar_SA" : "en_US",
       type: "article",
       publishedTime: news.published_at,
       authors: news.author?.name ? [news.author.name] : [],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: news.title,
+      description: news.description,
+      images: imageUrl ? [imageUrl] : [],
+    },
+    alternates: {
+      canonical: pageUrl,
+      languages: {
+        ar: `${siteUrl}/ar/news/${slug}`,
+        en: `${siteUrl}/en/news/${slug}`,
+      },
     },
   };
 }
@@ -216,22 +247,14 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
                 </div>
 
                 {/* Share Section */}
-                <div className="mt-12 pt-8 border-t border-gray-200">
-                  <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                    <Share2 className="w-5 h-5" />
-                    {t("shareArticle")}
-                  </h3>
-                  <div className="flex items-center gap-3">
-                    <button className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-                      <Facebook className="w-5 h-5" />
-                      Facebook
-                    </button>
-                    <button className="flex items-center gap-2 px-4 py-2 bg-sky-500 text-white rounded-lg hover:bg-sky-600 transition-colors">
-                      <Twitter className="w-5 h-5" />
-                      Twitter
-                    </button>
-                  </div>
-                </div>
+                <ShareButtons
+                  title={news.title}
+                  translations={{
+                    shareArticle: t("shareArticle"),
+                    copyLink: t("copyLink"),
+                    linkCopied: t("linkCopied"),
+                  }}
+                />
               </div>
             </article>
 
