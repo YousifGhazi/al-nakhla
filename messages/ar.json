@@ -86,7 +86,7 @@
     "worldNews": "أخبار عالمية",
     "sports": "رياضة",
     "technology": "تكنولوجيا",
-    "address": "المنصور, الكرخ, بغداد",
+    "address": "بغداد, الرصافة, الشورجة, شارع الخلفاء",
     "liveBroadcasting": "البث المباشر",
     "allDay": "٢٤ ساعة / ٧ أيام"
   },
@@ -312,7 +312,16 @@
     "wednesday": "الأربعاء",
     "thursday": "الخميس",
     "friday": "الجمعة",
-    "saturday": "السبت"
+    "saturday": "السبت",
+    "episodes": "الحلقات",
+    "episode": "الحلقة",
+    "noEpisodes": "لا توجد حلقات متاحة",
+    "watchOnYoutube": "شاهد على يوتيوب",
+    "description": "الوصف",
+    "episodeNumber": "رقم الحلقة",
+    "close": "إغلاق",
+    "loadMore": "تحميل المزيد من الحلقات",
+    "loading": "جارِ التحميل..."
   },
   "ReelsPage": {
     "pageTitle": "ريلز",
@@ -339,6 +348,19 @@
     "previous": "السابق",
     "next": "التالي",
     "duration": "المدة",
-    "fileSize": "حجم الملف"
+    "fileSize": "حجم الملف",
+    "comments": "التعليقات",
+    "writeComment": "اكتب تعليقاً...",
+    "send": "إرسال",
+    "noComments": "لا توجد تعليقات بعد",
+    "beFirstToComment": "كن أول من يعلق!",
+    "loadMore": "تحميل المزيد",
+    "like": "إعجاب",
+    "liked": "أعجبني",
+    "usernameRequired": "اسم المستخدم مطلوب",
+    "enterUsername": "أدخل اسم المستخدم للمتابعة",
+    "usernamePlaceholder": "اسم المستخدم",
+    "save": "حفظ",
+    "cancel": "إلغاء"
   }
 }

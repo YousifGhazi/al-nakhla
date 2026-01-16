@@ -86,7 +86,7 @@
     "worldNews": "World News",
     "sports": "Sports",
     "technology": "Technology",
-    "address": "King Fahd Road, Riyadh, Saudi Arabia",
+    "address": "Baghdad, Al-Rusafa, Al-Shorja, Al-Khulfaa Street",
     "liveBroadcasting": "Live Broadcasting",
     "allDay": "24/7"
   },
@@ -312,7 +312,16 @@
     "wednesday": "Wednesday",
     "thursday": "Thursday",
     "friday": "Friday",
-    "saturday": "Saturday"
+    "saturday": "Saturday",
+    "episodes": "Episodes",
+    "episode": "Episode",
+    "noEpisodes": "No episodes available",
+    "watchOnYoutube": "Watch on YouTube",
+    "description": "Description",
+    "episodeNumber": "Episode Number",
+    "close": "Close",
+    "loadMore": "Load More Episodes",
+    "loading": "Loading..."
   },
   "ReelsPage": {
     "pageTitle": "Reels",
@@ -339,6 +348,19 @@
     "previous": "Previous",
     "next": "Next",
     "duration": "Duration",
-    "fileSize": "File Size"
+    "fileSize": "File Size",
+    "comments": "Comments",
+    "writeComment": "Write a comment...",
+    "send": "Send",
+    "noComments": "No comments yet",
+    "beFirstToComment": "Be the first to comment!",
+    "loadMore": "Load more",
+    "like": "Like",
+    "liked": "Liked",
+    "usernameRequired": "Username Required",
+    "enterUsername": "Enter your username to continue",
+    "usernamePlaceholder": "Your username",
+    "save": "Save",
+    "cancel": "Cancel"
   }
 }

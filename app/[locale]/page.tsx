@@ -91,7 +91,7 @@ export default async function HomePage({ params }: HomePageProps) {
       <Header />
       <main>
         <HeroCarousel news={topNews} />
-        <BreakingNews news={breakingNews} />
+        <BreakingNews news={breakingNews} categories={categories} />
         <FeaturedShows shows={featuredShows} />
         <NewsCategoriesDynamic locale={locale} categories={categories} />
       </main>

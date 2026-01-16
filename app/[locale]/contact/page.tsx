@@ -18,6 +18,7 @@ const API_BASE_URL = "http://168.231.101.52:8080/api";
 
 export default function ContactPage() {
   const t = useTranslations("ContactPage");
+  const tF = useTranslations("Footer");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -255,7 +256,7 @@ export default function ContactPage() {
                           {t("addressLabel")}
                         </h4>
                         <p className="text-gray-600 text-xs leading-relaxed">
-                          {t("addressValue")}
+                          {tF("address")}
                         </p>
                       </div>
                     </div>
@@ -310,7 +311,7 @@ export default function ContactPage() {
                 {/* Map Card */}
                 <div className="bg-white rounded-lg shadow-sm border border-gray-200 flex-1 min-h-0 overflow-hidden">
                   <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d105735.24719278784!2d44.29493841640625!3d33.31243900000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15577f67a0a74193%3A0x9deda9d2a3b16f2c!2sBaghdad%2C%20Iraq!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s"
+                    src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d833.2806781919699!2d44.39240698749235!3d33.34174376267626!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2siq!4v1768490877010!5m2!1sen!2siq"
                     width="100%"
                     height="100%"
                     style={{ border: 0 }}

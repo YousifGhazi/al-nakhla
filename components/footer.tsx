@@ -16,12 +16,31 @@ import {
   Newspaper,
   Mic,
 } from "lucide-react";
+import { Category } from "@/types/categories";
+import { useEffect, useState } from "react";
 
 export default function Footer() {
   const locale = useLocale();
   const isArabic = locale === "ar";
   const t = useTranslations("Footer");
-
+  const [categoriesData, setCategoriesData] = useState<Category[]>([]);
+  useEffect(() => {
+    async function fetchCategories() {
+      try {
+        const response = await fetch(
+          `http://168.231.101.52:8080/api/categories`
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch categories");
+        }
+        const data = await response.json();
+        setCategoriesData(data.data || []);
+      } catch (error) {
+        console.error("حصل خطأ:", error);
+      }
+    }
+    fetchCategories();
+  }, []);
   const quickLinks = [
     {
       titleKey: "home",
@@ -41,54 +60,35 @@ export default function Footer() {
     },
   ];
 
-  const categories = [
-    {
-      titleKey: "localNews",
-      href: `/${locale}/category/local`,
-    },
-    {
-      titleKey: "worldNews",
-      href: `/${locale}/category/world`,
-    },
-    {
-      titleKey: "sports",
-      href: `/${locale}/category/sports`,
-    },
-    {
-      titleKey: "technology",
-      href: `/${locale}/category/tech`,
-    },
-  ];
-
   const socialLinks = [
     {
       name: "Facebook",
       icon: Facebook,
-      href: "https://facebook.com",
+      href: "https://facebook.com/alnakhlafm",
       color: "hover:text-blue-500",
     },
     {
       name: "Twitter",
       icon: Twitter,
-      href: "https://twitter.com",
+      href: "https://twitter.com/alnakhlafm",
       color: "hover:text-sky-400",
     },
     {
       name: "Instagram",
       icon: Instagram,
-      href: "https://instagram.com",
-      color: "hover:text-pink-500",
+      href: "https://instagram.com/alnakhlafm",
+      color: "hover:text-pink-500", 
     },
     {
       name: "Youtube",
       icon: Youtube,
-      href: "https://youtube.com",
+      href: "https://www.youtube.com/@alnakhlafm",
       color: "hover:text-primary-600",
     },
     {
       name: "LinkedIn",
       icon: Linkedin,
-      href: "https://linkedin.com",
+      href: "https://linkedin.com/company/alnakhlafm",
       color: "hover:text-blue-600",
     },
   ];
@@ -165,19 +165,22 @@ export default function Footer() {
               {t("categories")}
             </h4>
             <ul className="space-y-3">
-              {categories.map((category, index) => (
-                <li key={index}>
-                  <Link
-                    href={category.href}
-                    className="text-gray-400 hover:text-primary-400 transition-colors duration-300 flex items-center gap-2 group"
-                  >
-                    <span className="text-primary-400 group-hover:translate-x-1 transition-transform">
-                      {isArabic ? "←" : "→"}
-                    </span>
-                    {t(category.titleKey)}
-                  </Link>
-                </li>
-              ))}
+              {categoriesData.map((category, index) => {
+                if (index + 1 > 4) return null; // Limit to 4 categories
+                return (
+                  <li key={index}>
+                    <Link
+                      href={`/${locale}/news?category=${category.slug}`}
+                      className="text-gray-400 hover:text-primary-400 transition-colors duration-300 flex items-center gap-2 group"
+                    >
+                      <span className="text-primary-400 group-hover:translate-x-1 transition-transform">
+                        {isArabic ? "←" : "→"}
+                      </span>
+                      {category.name}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 

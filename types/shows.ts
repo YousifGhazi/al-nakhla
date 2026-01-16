@@ -90,3 +90,34 @@ export type ShowlugResponse = {
   success: boolean;
   data: Show;
 };
+
+export interface ShowEpisode {
+  id: number;
+  show_id: number;
+  name: string;
+  description: string;
+  image_url: string;
+  youtube_url: string;
+  episode_number: number;
+  is_published: boolean;
+  sort_order: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface ShowEpisodesList {
+  success: boolean;
+  data: ShowEpisode[];
+  meta: {
+    current_page: number;
+    last_page: number;
+    per_page: number;
+    total: number;
+  };
+}
+
+export interface ShowEpisodesParam {
+  show_slug: string;
+  page?: number;
+  per_page?: number;
+}

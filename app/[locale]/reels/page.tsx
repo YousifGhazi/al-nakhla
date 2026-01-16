@@ -189,6 +189,19 @@ export default async function ReelsPage({
                 next: t("next"),
                 duration: t("duration"),
                 fileSize: t("fileSize"),
+                comments: t("comments"),
+                writeComment: t("writeComment"),
+                send: t("send"),
+                noComments: t("noComments"),
+                beFirstToComment: t("beFirstToComment"),
+                loadMore: t("loadMore"),
+                like: t("like"),
+                liked: t("liked"),
+                usernameRequired: t("usernameRequired"),
+                enterUsername: t("enterUsername"),
+                usernamePlaceholder: t("usernamePlaceholder"),
+                save: t("save"),
+                cancel: t("cancel"),
               }}
             />
           </div>

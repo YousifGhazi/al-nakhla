@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
@@ -19,6 +19,9 @@ import {
   Film,
   Clock,
   User,
+  MessageCircle,
+  Send,
+  Loader2,
 } from "lucide-react";
 import {
   Reel,
@@ -26,6 +29,7 @@ import {
   normalizeMeta,
   ReelsResponseRaw,
 } from "@/types/reels";
+import { Comment, CommentsByReelResponse } from "@/types/comment";
 
 interface ReelsGridProps {
   initialReels: Reel[];
@@ -56,6 +60,19 @@ interface ReelsGridProps {
     next: string;
     duration: string;
     fileSize: string;
+    comments: string;
+    writeComment: string;
+    send: string;
+    noComments: string;
+    beFirstToComment: string;
+    loadMore: string;
+    like: string;
+    liked: string;
+    usernameRequired: string;
+    enterUsername: string;
+    usernamePlaceholder: string;
+    save: string;
+    cancel: string;
   };
 }
 
@@ -77,6 +94,7 @@ export default function ReelsGrid({
   const router = useRouter();
   const searchParams = useSearchParams();
   const isRTL = locale === "ar";
+  const commentsEndRef = useRef<HTMLDivElement>(null);
 
   const [reels, setReels] = useState<Reel[]>(initialReels);
   const [meta, setMeta] = useState<PaginationMeta | null>(initialMeta);
@@ -89,6 +107,62 @@ export default function ReelsGrid({
   const [sortBy, setSortBy] = useState(searchParams.get("sort") || "");
   const [isSortDropdownOpen, setIsSortDropdownOpen] = useState(false);
   const [linkCopied, setLinkCopied] = useState(false);
+
+  // Comments state
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [commentsLoading, setCommentsLoading] = useState(false);
+  const [commentsMeta, setCommentsMeta] = useState<{
+    current_page: number;
+    last_page: number;
+    total: number;
+  } | null>(null);
+  const [newComment, setNewComment] = useState("");
+  const [submittingComment, setSubmittingComment] = useState(false);
+
+  // Like state
+  const [likedReels, setLikedReels] = useState<Set<number>>(new Set());
+  const [likingReel, setLikingReel] = useState(false);
+
+  // Username modal state
+  const [showUsernameModal, setShowUsernameModal] = useState(false);
+  const [usernameInput, setUsernameInput] = useState("");
+  const [pendingAction, setPendingAction] = useState<"comment" | "like" | null>(
+    null
+  );
+
+  // Get username from localStorage
+  const getUsername = (): string | null => {
+    if (typeof window === "undefined") return null;
+    return localStorage.getItem("reels_username");
+  };
+
+  // Save username to localStorage
+  const saveUsername = (username: string) => {
+    if (typeof window === "undefined") return;
+    localStorage.setItem("reels_username", username);
+  };
+
+  // Load liked reels from localStorage
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("liked_reels");
+      if (stored) {
+        try {
+          const parsed = JSON.parse(stored);
+          setLikedReels(new Set(parsed));
+        } catch {
+          // Ignore invalid JSON
+        }
+      }
+    }
+  }, []);
+
+  // Save liked reels to localStorage
+  const saveLikedReels = (liked: Set<number>) => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("liked_reels", JSON.stringify([...liked]));
+    }
+  };
 
   const sortOptions = [
     { value: "", label: t.newest },
@@ -123,6 +197,208 @@ export default function ReelsGrid({
     },
     [searchQuery, sortBy]
   );
+
+  // Fetch comments for a reel
+  const fetchComments = useCallback(
+    async (reelId: number, page: number = 1) => {
+      setCommentsLoading(true);
+      try {
+        const response = await fetch(
+          `${API_BASE_URL}/reels/${reelId}/comments?page=${page}&per_page=10`
+        );
+        if (!response.ok) throw new Error("Failed to fetch comments");
+
+        const data: CommentsByReelResponse = await response.json();
+        if (page === 1) {
+          setComments(data.data);
+        } else {
+          setComments((prev) => [...prev, ...data.data]);
+        }
+        setCommentsMeta({
+          current_page: data.meta.current_page,
+          last_page: data.meta.last_page,
+          total: data.meta.total,
+        });
+      } catch (error) {
+        console.error("Error fetching comments:", error);
+      } finally {
+        setCommentsLoading(false);
+      }
+    },
+    []
+  );
+
+  // Post a comment
+  const postComment = async () => {
+    if (!selectedReel || !newComment.trim()) return;
+
+    const username = getUsername();
+    if (!username) {
+      setPendingAction("comment");
+      setShowUsernameModal(true);
+      return;
+    }
+
+    setSubmittingComment(true);
+    try {
+      const response = await fetch(
+        `${API_BASE_URL}/reels/${selectedReel.id}/comments`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username,
+            comment: newComment.trim(),
+          }),
+        }
+      );
+
+      if (!response.ok) throw new Error("Failed to post comment");
+
+      // Refresh comments
+      await fetchComments(selectedReel.id, 1);
+      setNewComment("");
+
+      // Scroll to top of comments
+      if (commentsEndRef.current) {
+        commentsEndRef.current.scrollIntoView({ behavior: "smooth" });
+      }
+    } catch (error) {
+      console.error("Error posting comment:", error);
+    } finally {
+      setSubmittingComment(false);
+    }
+  };
+
+  // Like a reel
+  const likeReel = async () => {
+    if (!selectedReel) return;
+
+    const username = getUsername();
+    if (!username) {
+      setPendingAction("like");
+      setShowUsernameModal(true);
+      return;
+    }
+
+    setLikingReel(true);
+    try {
+      const response = await fetch(
+        `${API_BASE_URL}/reels/${selectedReel.id}/like`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username }),
+        }
+      );
+
+      if (!response.ok) throw new Error("Failed to like reel");
+
+      // Update local state
+      const newLikedReels = new Set(likedReels);
+      newLikedReels.add(selectedReel.id);
+      setLikedReels(newLikedReels);
+      saveLikedReels(newLikedReels);
+
+      // Update reel likes count
+      setSelectedReel({
+        ...selectedReel,
+        likes_count: selectedReel.likes_count + 1,
+      });
+      setReels((prev) =>
+        prev.map((r) =>
+          r.id === selectedReel.id
+            ? { ...r, likes_count: r.likes_count + 1 }
+            : r
+        )
+      );
+    } catch (error) {
+      console.error("Error liking reel:", error);
+    } finally {
+      setLikingReel(false);
+    }
+  };
+
+  // Unlike a reel
+  const unlikeReel = async () => {
+    if (!selectedReel) return;
+
+    setLikingReel(true);
+    try {
+      const response = await fetch(
+        `${API_BASE_URL}/reels/${selectedReel.id}/unlike`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (!response.ok) throw new Error("Failed to unlike reel");
+
+      // Update local state
+      const newLikedReels = new Set(likedReels);
+      newLikedReels.delete(selectedReel.id);
+      setLikedReels(newLikedReels);
+      saveLikedReels(newLikedReels);
+
+      // Update reel likes count
+      setSelectedReel({
+        ...selectedReel,
+        likes_count: Math.max(0, selectedReel.likes_count - 1),
+      });
+      setReels((prev) =>
+        prev.map((r) =>
+          r.id === selectedReel.id
+            ? { ...r, likes_count: Math.max(0, r.likes_count - 1) }
+            : r
+        )
+      );
+    } catch (error) {
+      console.error("Error unliking reel:", error);
+    } finally {
+      setLikingReel(false);
+    }
+  };
+
+  // Toggle like
+  const toggleLike = () => {
+    if (!selectedReel) return;
+    if (likedReels.has(selectedReel.id)) {
+      unlikeReel();
+    } else {
+      likeReel();
+    }
+  };
+
+  // Handle username submission
+  const handleUsernameSubmit = () => {
+    if (!usernameInput.trim()) return;
+
+    saveUsername(usernameInput.trim());
+    setShowUsernameModal(false);
+    setUsernameInput("");
+
+    // Execute pending action
+    if (pendingAction === "comment") {
+      postComment();
+    } else if (pendingAction === "like") {
+      likeReel();
+    }
+    setPendingAction(null);
+  };
+
+  // Fetch comments when modal opens
+  useEffect(() => {
+    if (isModalOpen && selectedReel) {
+      fetchComments(selectedReel.id, 1);
+    } else {
+      setComments([]);
+      setCommentsMeta(null);
+    }
+  }, [isModalOpen, selectedReel, fetchComments]);
 
   // Update URL when filters change
   const updateUrl = useCallback(
@@ -587,12 +863,12 @@ export default function ReelsGrid({
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
-              className="h-full flex flex-col lg:flex-row lg:items-center lg:justify-center lg:gap-6 lg:p-8"
+              className="h-full w-full overflow-y-auto lg:overflow-visible lg:flex lg:items-center lg:justify-center lg:gap-6 lg:p-8"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Video Section */}
-              <div className="flex-1 lg:flex-none flex items-center justify-center p-4 lg:p-0">
-                <div className="relative w-full max-w-md lg:w-80 xl:w-96 h-full max-h-[60vh] lg:max-h-[85vh] aspect-9/16 bg-primary-950 rounded-2xl overflow-hidden shadow-2xl">
+              <div className="sticky top-0 z-10 bg-black lg:relative lg:bg-transparent flex items-center justify-center p-2 sm:p-4 lg:p-0">
+                <div className="relative w-full max-w-xs sm:max-w-sm lg:w-80 xl:w-96 aspect-9/16 max-h-[45vh] sm:max-h-[50vh] lg:max-h-[85vh] bg-primary-950 rounded-xl lg:rounded-2xl overflow-hidden shadow-2xl">
                   <video
                     key={selectedReel.id}
                     src={selectedReel.stream_url}
@@ -605,126 +881,272 @@ export default function ReelsGrid({
                 </div>
               </div>
 
-              {/* Info Sidebar - Compact on large screens */}
-              <div className="w-full lg:w-72 xl:w-80 lg:max-h-[85vh] bg-primary-950 lg:bg-primary-950/95 lg:backdrop-blur-sm lg:rounded-2xl p-4 lg:p-5 overflow-y-auto flex flex-col">
-                {/* Title */}
-                <h2 className="text-lg lg:text-xl font-bold text-white mb-2">
-                  {selectedReel.title}
-                </h2>
-
-                {/* Description */}
-                {selectedReel.description && (
-                  <p className="text-gray-300 text-sm mb-3 leading-relaxed line-clamp-3 lg:line-clamp-4">
-                    {selectedReel.description}
-                  </p>
-                )}
-
-                {/* Author Section */}
-                <div className="flex items-center gap-2 mb-4 pb-4 border-b border-primary-800">
+              {/* Info Sidebar */}
+              <div className="w-full lg:w-80 xl:w-96 lg:max-h-[85vh] bg-primary-950 lg:bg-primary-950/95 lg:backdrop-blur-sm lg:rounded-2xl p-4 lg:p-5 flex flex-col">
+                {/* Title & Author Row - Mobile Compact */}
+                <div className="flex items-start gap-3 mb-3">
                   {selectedReel.author.avatar_url ? (
                     <Image
                       src={selectedReel.author.avatar_url}
                       alt={selectedReel.author.name}
                       width={40}
                       height={40}
-                      className="rounded-full"
+                      className="rounded-full shrink-0"
                     />
                   ) : (
-                    <div className="w-10 h-10 bg-primary-700 rounded-full flex items-center justify-center">
+                    <div className="w-10 h-10 bg-primary-700 rounded-full flex items-center justify-center shrink-0">
                       <User className="w-5 h-5 text-white" />
                     </div>
                   )}
-                  <div>
-                    <p className="text-white font-medium text-sm">
-                      {selectedReel.author.name}
+                  <div className="flex-1 min-w-0">
+                    <h2 className="text-base lg:text-lg font-bold text-white line-clamp-1">
+                      {selectedReel.title}
+                    </h2>
+                    <p className="text-gray-400 text-xs">
+                      {t.by} {selectedReel.author.name}
                     </p>
-                    <p className="text-gray-400 text-xs">{t.by}</p>
                   </div>
                 </div>
 
-                {/* Stats Grid */}
-                <div className="grid grid-cols-2 gap-3 mb-4">
-                  <div className="bg-primary-900 rounded-lg p-3 text-center">
-                    <Eye className="w-5 h-5 text-primary-700 mx-auto mb-1" />
-                    <p className="text-white font-bold text-sm">
-                      {formatNumber(selectedReel.views_count, locale)}
-                    </p>
-                    <p className="text-gray-400 text-xs">{t.views}</p>
-                  </div>
-                  <div className="bg-primary-900 rounded-lg p-3 text-center">
-                    <Heart className="w-5 h-5 text-red-500 mx-auto mb-1" />
-                    <p className="text-white font-bold text-sm">
-                      {formatNumber(selectedReel.likes_count, locale)}
-                    </p>
-                    <p className="text-gray-400 text-xs">{t.likes}</p>
-                  </div>
-                </div>
-
-                {/* Video Info */}
-                {(selectedReel.duration_formatted ||
-                  selectedReel.file_size_formatted) && (
-                  <div className="bg-primary-900 rounded-lg p-3 mb-4 space-y-1.5">
-                    {selectedReel.duration_formatted && (
-                      <div className="flex items-center justify-between text-xs">
-                        <span className="text-gray-400 flex items-center gap-1.5">
-                          <Clock className="w-3.5 h-3.5" />
-                          {t.duration}
-                        </span>
-                        <span className="text-white font-medium">
-                          {selectedReel.duration_formatted}
-                        </span>
-                      </div>
-                    )}
-                    {selectedReel.file_size_formatted && (
-                      <div className="flex items-center justify-between text-xs">
-                        <span className="text-gray-400 flex items-center gap-1.5">
-                          <Film className="w-3.5 h-3.5" />
-                          {t.fileSize}
-                        </span>
-                        <span className="text-white font-medium">
-                          {selectedReel.file_size_formatted}
-                        </span>
-                      </div>
-                    )}
-                  </div>
+                {/* Description - Collapsible on mobile */}
+                {selectedReel.description && (
+                  <p className="text-gray-300 text-sm mb-3 leading-relaxed line-clamp-2 lg:line-clamp-3">
+                    {selectedReel.description}
+                  </p>
                 )}
 
-                {/* Share Buttons */}
-                <div className="mt-auto space-y-2">
-                  <button
-                    onClick={shareReel}
-                    className="w-full flex items-center justify-center gap-2 py-2.5 bg-primary-700 text-white rounded-lg hover:bg-primary-800 transition-colors font-medium text-sm"
-                  >
-                    <Share2 className="w-4 h-4" />
-                    {t.share}
-                  </button>
+                {/* Stats & Actions Row */}
+                <div className="flex items-center justify-between gap-2 mb-3 pb-3 border-b border-primary-800">
+                  <div className="flex items-center gap-3 text-sm">
+                    <span className="flex items-center gap-1 text-gray-300">
+                      <Eye className="w-4 h-4" />
+                      {formatNumber(selectedReel.views_count, locale)}
+                    </span>
+                    <span className="flex items-center gap-1 text-gray-300">
+                      <MessageCircle className="w-4 h-4" />
+                      {formatNumber(commentsMeta?.total || 0, locale)}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={toggleLike}
+                      disabled={likingReel}
+                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
+                        likedReels.has(selectedReel.id)
+                          ? "bg-red-500 text-white"
+                          : "bg-primary-800 text-white hover:bg-primary-700"
+                      } disabled:opacity-50`}
+                    >
+                      {likingReel ? (
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                      ) : (
+                        <Heart
+                          className={`w-4 h-4 ${
+                            likedReels.has(selectedReel.id)
+                              ? "fill-current"
+                              : ""
+                          }`}
+                        />
+                      )}
+                      {formatNumber(selectedReel.likes_count, locale)}
+                    </button>
+                    <button
+                      onClick={shareReel}
+                      className="p-2 bg-primary-800 text-white rounded-full hover:bg-primary-700 transition-colors"
+                    >
+                      <Share2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Comments Section */}
+                <div className="flex-1 flex flex-col min-h-0">
+                  <h3 className="text-white font-semibold text-sm mb-2 flex items-center gap-2">
+                    <MessageCircle className="w-4 h-4" />
+                    {t.comments} (
+                    {formatNumber(commentsMeta?.total || 0, locale)})
+                  </h3>
+
+                  {/* Comments List - Better mobile height */}
+                  <div className="flex-1 overflow-y-auto space-y-3 min-h-[120px] max-h-[200px] sm:max-h-[250px] lg:max-h-[280px] bg-primary-900/50 rounded-lg p-3">
+                    <div ref={commentsEndRef} />
+                    {commentsLoading && comments.length === 0 ? (
+                      <div className="flex items-center justify-center py-6">
+                        <Loader2 className="w-5 h-5 animate-spin text-gray-400" />
+                      </div>
+                    ) : comments.length === 0 ? (
+                      <div className="text-center py-6">
+                        <MessageCircle className="w-8 h-8 text-gray-600 mx-auto mb-2" />
+                        <p className="text-gray-400 text-sm">{t.noComments}</p>
+                        <p className="text-gray-500 text-xs">
+                          {t.beFirstToComment}
+                        </p>
+                      </div>
+                    ) : (
+                      <>
+                        {comments.map((comment) => (
+                          <div key={comment.id} className="text-sm">
+                            <div className="flex items-start gap-2">
+                              <div className="w-7 h-7 bg-primary-700 rounded-full flex items-center justify-center shrink-0">
+                                <User className="w-3.5 h-3.5 text-white" />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center gap-2 flex-wrap">
+                                  <span className="font-medium text-white text-xs">
+                                    {comment.username}
+                                  </span>
+                                  <span className="text-gray-500 text-xs">
+                                    {comment.time_ago}
+                                  </span>
+                                </div>
+                                <p className="text-gray-300 text-xs mt-0.5 break-words">
+                                  {comment.comment}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                        {commentsMeta &&
+                          commentsMeta.current_page <
+                            commentsMeta.last_page && (
+                            <button
+                              onClick={() =>
+                                fetchComments(
+                                  selectedReel.id,
+                                  commentsMeta.current_page + 1
+                                )
+                              }
+                              disabled={commentsLoading}
+                              className="w-full py-2 text-primary-400 text-xs font-medium hover:text-primary-300 transition-colors disabled:opacity-50"
+                            >
+                              {commentsLoading ? (
+                                <Loader2 className="w-4 h-4 animate-spin mx-auto" />
+                              ) : (
+                                t.loadMore
+                              )}
+                            </button>
+                          )}
+                      </>
+                    )}
+                  </div>
+
+                  {/* Comment Input */}
+                  <div className="flex items-center gap-2 mt-3">
+                    <input
+                      type="text"
+                      value={newComment}
+                      onChange={(e) => setNewComment(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" && !e.shiftKey) {
+                          e.preventDefault();
+                          postComment();
+                        }
+                      }}
+                      placeholder={t.writeComment}
+                      className="flex-1 bg-primary-800 text-white text-sm px-3 py-2.5 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-600"
+                    />
+                    <button
+                      onClick={postComment}
+                      disabled={!newComment.trim() || submittingComment}
+                      className="p-2.5 bg-primary-700 text-white rounded-lg hover:bg-primary-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {submittingComment ? (
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                      ) : (
+                        <Send className="w-4 h-4" />
+                      )}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Bottom Actions - Copy Link & Counter */}
+                <div className="flex items-center justify-between mt-3 pt-3 border-t border-primary-800">
                   <button
                     onClick={copyShareLink}
-                    className={`w-full flex items-center justify-center gap-2 py-2.5 rounded-lg transition-colors font-medium text-sm ${
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors text-sm ${
                       linkCopied
                         ? "bg-green-600 text-white"
-                        : "bg-primary-800 text-white hover:bg-primary-700"
+                        : "bg-primary-800 text-gray-300 hover:bg-primary-700"
                     }`}
                   >
                     {linkCopied ? (
                       <>
-                        <Check className="w-4 h-4" />
+                        <Check className="w-3.5 h-3.5" />
                         {t.linkCopied}
                       </>
                     ) : (
                       <>
-                        <Copy className="w-4 h-4" />
+                        <Copy className="w-3.5 h-3.5" />
                         {t.copyLink}
                       </>
                     )}
                   </button>
+                  <span className="text-gray-500 text-xs">
+                    {formatNumber(getCurrentReelIndex() + 1, locale)} {t.of}{" "}
+                    {formatNumber(reels.length, locale)}
+                  </span>
                 </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-                {/* Reel Counter */}
-                <div className="mt-3 text-center text-gray-500 text-xs">
-                  {formatNumber(getCurrentReelIndex() + 1, locale)} {t.of}{" "}
-                  {formatNumber(reels.length, locale)}
-                </div>
+      {/* Username Modal */}
+      <AnimatePresence>
+        {showUsernameModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
+            onClick={() => {
+              setShowUsernameModal(false);
+              setPendingAction(null);
+            }}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="bg-white rounded-2xl p-6 w-full max-w-sm shadow-xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <h3 className="text-xl font-bold text-gray-900 mb-2">
+                {t.usernameRequired}
+              </h3>
+              <p className="text-gray-500 text-sm mb-4">{t.enterUsername}</p>
+              <input
+                type="text"
+                value={usernameInput}
+                onChange={(e) => setUsernameInput(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleUsernameSubmit();
+                  }
+                }}
+                placeholder={t.usernamePlaceholder}
+                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-700 focus:border-transparent mb-4"
+                autoFocus
+              />
+              <div className="flex gap-3">
+                <button
+                  onClick={() => {
+                    setShowUsernameModal(false);
+                    setPendingAction(null);
+                    setUsernameInput("");
+                  }}
+                  className="flex-1 py-2.5 border border-gray-200 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors font-medium"
+                >
+                  {t.cancel}
+                </button>
+                <button
+                  onClick={handleUsernameSubmit}
+                  disabled={!usernameInput.trim()}
+                  className="flex-1 py-2.5 bg-primary-700 text-white rounded-xl hover:bg-primary-800 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {t.save}
+                </button>
               </div>
             </motion.div>
           </motion.div>

@@ -1,10 +1,8 @@
 import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
-import Image from "next/image";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import {
-  Radio,
   Target,
   Zap,
   Facebook,
@@ -31,39 +29,6 @@ export async function generateMetadata({
 export default function AboutPage() {
   const t = useTranslations("AboutPage");
 
-  const timeline = [
-    {
-      year: t("timeline.0.year"),
-      title: t("timeline.0.title"),
-      description: t("timeline.0.description"),
-    },
-    {
-      year: t("timeline.1.year"),
-      title: t("timeline.1.title"),
-      description: t("timeline.1.description"),
-    },
-    {
-      year: t("timeline.2.year"),
-      title: t("timeline.2.title"),
-      description: t("timeline.2.description"),
-    },
-    {
-      year: t("timeline.3.year"),
-      title: t("timeline.3.title"),
-      description: t("timeline.3.description"),
-    },
-    {
-      year: t("timeline.4.year"),
-      title: t("timeline.4.title"),
-      description: t("timeline.4.description"),
-    },
-    {
-      year: t("timeline.5.year"),
-      title: t("timeline.5.title"),
-      description: t("timeline.5.description"),
-    },
-  ];
-
   return (
     <>
       <Header />
@@ -74,7 +39,9 @@ export default function AboutPage() {
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
               {t("heroTitle")}
             </h1>
-            <p className="text-xl max-w-[60ch] mx-auto text-white/80">{t("heroDescription")}</p>
+            <p className="text-xl max-w-[60ch] mx-auto text-white/80">
+              {t("heroDescription")}
+            </p>
           </div>
         </div>
         <section className="py-12 md:p-16 bg-gray-50">
@@ -124,8 +91,6 @@ export default function AboutPage() {
             </div>
           </div>
         </section>
-
-
 
         {/* Social Media Section */}
         <section className="py-20 md:py-32 bg-gray-50 border-t border-gray-100">
@@ -264,8 +229,6 @@ export default function AboutPage() {
                   {t("facilitiesDescription")}
                 </p>
               </div>
-
-
             </div>
           </div>
         </section>

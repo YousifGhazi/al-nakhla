@@ -2,7 +2,6 @@ import { Metadata } from "next";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import RadioCard from "@/components/radio-card";
-import ShareButtons from "@/components/news/share-buttons";
 
 interface RadioPageProps {
   params: Promise<{ locale: string }>;
@@ -77,7 +76,6 @@ export async function generateMetadata({
 
 export default async function RadioPage({ params }: RadioPageProps) {
   const { locale } = await params;
-  const isArabic = locale === "ar";
 
   const currentTitle =
     mockProgram.title[locale as keyof typeof mockProgram.title] ||
@@ -99,17 +97,6 @@ export default async function RadioPage({ params }: RadioPageProps) {
             isLive={HAS_ACTIVE_PROGRAM}
           />
 
-          {/* Share Section */}
-          <div className="mt-8 bg-white rounded-2xl shadow-lg p-6 md:p-8">
-            <ShareButtons
-              title={currentTitle}
-              translations={{
-                shareArticle: isArabic ? "مشاركة الراديو" : "Share Radio",
-                copyLink: isArabic ? "نسخ الرابط" : "Copy Link",
-                linkCopied: isArabic ? "تم النسخ!" : "Link Copied!",
-              }}
-            />
-          </div>
         </div>
       </main>
       <Footer />

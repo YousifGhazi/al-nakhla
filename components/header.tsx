@@ -52,13 +52,6 @@ export default function Header() {
 
           {/* Language Switcher & Mobile Menu Button */}
           <div className="flex items-center gap-2">
-            <Link
-              href={`/${isArabic ? "en" : "ar"}`}
-              className="px-4 py-2 bg-white/20 hover:bg-white/30 text-white rounded-lg transition-all duration-300 font-medium text-sm"
-            >
-              {t("languageSwitch")}
-            </Link>
-
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}

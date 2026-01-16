@@ -6,6 +6,7 @@ import Footer from "@/components/footer";
 import Image from "next/image";
 import Link from "next/link";
 import ShareButtons from "@/components/news/share-buttons";
+import EpisodesSection from "@/components/shows/episodes-section";
 import {
   Radio,
   Clock,
@@ -214,6 +215,23 @@ export default async function ShowDetailPage({ params }: ShowDetailPageProps) {
                   {show.about}
                 </p>
               </div>
+
+              {/* Episodes Section */}
+              <EpisodesSection
+                slug={show.slug}
+                translations={{
+                  episodes: t("episodes"),
+                  episode: t("episode"),
+                  noEpisodes: t("noEpisodes"),
+                  watchOnYoutube: t("watchOnYoutube"),
+                  description: t("description"),
+                  episodeNumber: t("episodeNumber"),
+                  close: t("close"),
+                  loadMore: t("loadMore"),
+                  loading: t("loading"),
+                }}
+                isArabic={isArabic}
+              />
 
               {/* Stream Link */}
               {show.stream_url && (
