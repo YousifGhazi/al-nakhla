@@ -45,6 +45,7 @@ export type NewsListParams = {
   date_from?: string;
   date_to?: string;
   featured?: boolean;
+  trending?: boolean;
   q?: string;
   sort:
     | "published_at"

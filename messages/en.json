@@ -232,6 +232,9 @@
     "searchPlaceholder": "Search for news...",
     "categories": "Categories",
     "allCategories": "All Categories",
+    "filters": "Filters",
+    "breakingNews": "Breaking News",
+    "trending": "Trending",
     "featured": "Featured",
     "featuredOnly": "Featured Only",
     "sortNewest": "Newest First",
@@ -247,7 +250,18 @@
     "previous": "Previous",
     "next": "Next",
     "dateFrom": "From",
-    "dateTo": "To"
+    "dateTo": "To",
+    "bookmark": "Bookmark",
+    "bookmarked": "Bookmarked",
+    "authModalTitle": "Welcome to Al Nakhla FM",
+    "authModalDescription": "Please enter your name to bookmark categories and personalize your news feed",
+    "authModalNamePlaceholder": "Enter your name",
+    "authModalNameLabel": "Your Name",
+    "authModalSubmit": "Continue",
+    "authModalCancel": "Cancel",
+    "authModalGenerating": "Setting up...",
+    "authModalSuccess": "Welcome!",
+    "authModalError": "Something went wrong. Please try again."
   },
   "NewsDetail": {
     "backToNews": "Back to News",
@@ -361,6 +375,14 @@
     "enterUsername": "Enter your username to continue",
     "usernamePlaceholder": "Your username",
     "save": "Save",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "authModalTitle": "Welcome to Al Nakhla FM Reels",
+    "authModalDescription": "Please enter your name to like and comment on reels",
+    "authModalNamePlaceholder": "Enter your name",
+    "authModalNameLabel": "Your Name",
+    "authModalSubmit": "Continue",
+    "authModalGenerating": "Setting up...",
+    "authModalSuccess": "Welcome!",
+    "authModalError": "Something went wrong. Please try again."
   }
 }

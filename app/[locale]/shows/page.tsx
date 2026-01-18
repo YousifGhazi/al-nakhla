@@ -14,7 +14,7 @@ import {
   DayOfWeek,
 } from "@/types/shows";
 
-const API_BASE_URL = "http://168.231.101.52:8080/api";
+const API_BASE_URL = "https://api.palm-fm.cloud/api";
 
 interface ShowsPageProps {
   params: Promise<{ locale: string }>;

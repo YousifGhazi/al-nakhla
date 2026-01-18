@@ -21,7 +21,7 @@ import {
 } from "lucide-react";
 import { Show, ShowlugResponse } from "@/types/shows";
 
-const API_BASE_URL = "http://168.231.101.52:8080/api";
+const API_BASE_URL = "https://api.palm-fm.cloud/api";
 
 interface ShowDetailPageProps {
   params: Promise<{ locale: string; slug: string }>;
@@ -157,10 +157,10 @@ export default async function ShowDetailPage({ params }: ShowDetailPageProps) {
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2">
                 {show.title}
               </h1>
-              {show.author && (
+              {show.presenters && show.presenters.length > 0 && (
                 <p className="text-white/80 text-lg flex items-center gap-2">
                   <User className="w-5 h-5" />
-                  {t("hostedBy")} {show.author.name}
+                  {t("hostedBy")} {show.presenters.join(", ")}
                 </p>
               )}
             </div>
@@ -266,7 +266,7 @@ export default async function ShowDetailPage({ params }: ShowDetailPageProps) {
                       <Image
                         src={
                           show.author.avatar_url ||
-                          "/images/placeholder-avatar.jpg"
+                          "/images/placeholder-avatar.webp"
                         }
                         alt={show.author.name}
                         fill
@@ -275,16 +275,15 @@ export default async function ShowDetailPage({ params }: ShowDetailPageProps) {
                     </div>
                     <div>
                       <p className="text-xl font-bold text-gray-900">
-                        {show.author.name}
+                          {show.presenters.join(", ")}
                       </p>
-                      {show.author.email && (
+
                         <a
                           href={`mailto:${show.author.email}`}
                           className="text-red-600 text-sm hover:underline"
                         >
-                          {show.author.email}
+                          info@alnakhlafm.com
                         </a>
-                      )}
                     </div>
                   </div>
                 </div>

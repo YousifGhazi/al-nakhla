@@ -15,6 +15,10 @@ const nextConfig: NextConfig = {
         hostname: "168.231.101.52",
         port: "8080",
       },
+      {
+        protocol: "https",
+        hostname: "api.palm-fm.cloud",
+      },
     ],
   },
 };

@@ -232,6 +232,9 @@
     "searchPlaceholder": "البحث عن أخبار...",
     "categories": "التصنيفات",
     "allCategories": "جميع التصنيفات",
+    "filters": "الفلاتر",
+    "breakingNews": "أخبار عاجلة",
+    "trending": "شائع",
     "featured": "مميز",
     "featuredOnly": "المميزة فقط",
     "sortNewest": "الأحدث أولاً",
@@ -247,7 +250,18 @@
     "previous": "السابق",
     "next": "التالي",
     "dateFrom": "من",
-    "dateTo": "إلى"
+    "dateTo": "إلى",
+    "bookmark": "إضافة إلى المفضلة",
+    "bookmarked": "في المفضلة",
+    "authModalTitle": "مرحباً بك في النخلة إف إم",
+    "authModalDescription": "يرجى إدخال اسمك لإضافة التصنيفات إلى المفضلة وتخصيص موجز الأخبار الخاص بك",
+    "authModalNamePlaceholder": "أدخل اسمك",
+    "authModalNameLabel": "اسمك",
+    "authModalSubmit": "متابعة",
+    "authModalCancel": "إلغاء",
+    "authModalGenerating": "جاري الإعداد...",
+    "authModalSuccess": "مرحباً بك!",
+    "authModalError": "حدث خطأ. الرجاء المحاولة مرة أخرى."
   },
   "NewsDetail": {
     "backToNews": "العودة للأخبار",
@@ -361,6 +375,14 @@
     "enterUsername": "أدخل اسم المستخدم للمتابعة",
     "usernamePlaceholder": "اسم المستخدم",
     "save": "حفظ",
-    "cancel": "إلغاء"
+    "cancel": "إلغاء",
+    "authModalTitle": "مرحباً بك في ريلز النخلة إف إم",
+    "authModalDescription": "يرجى إدخال اسمك للإعجاب والتعليق على الريلز",
+    "authModalNamePlaceholder": "أدخل اسمك",
+    "authModalNameLabel": "اسمك",
+    "authModalSubmit": "متابعة",
+    "authModalGenerating": "جاري الإعداد...",
+    "authModalSuccess": "مرحباً بك!",
+    "authModalError": "حدث خطأ. الرجاء المحاولة مرة أخرى."
   }
 }

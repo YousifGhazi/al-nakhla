@@ -5,6 +5,7 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 import NewsImage from "@/components/news-image";
 import SortSelect from "@/components/news/sort-select";
+import NewsPageClient from "@/components/news-page-client";
 import {
   NewsListResponse,
   NewsListResponseRaw,
@@ -22,7 +23,7 @@ import {
   Filter,
 } from "lucide-react";
 
-const API_BASE_URL = "http://168.231.101.52:8080/api";
+const API_BASE_URL = "https://api.palm-fm.cloud/api";
 
 interface NewsPageProps {
   params: Promise<{ locale: string }>;
@@ -33,6 +34,8 @@ interface NewsPageProps {
     date_from?: string;
     date_to?: string;
     featured?: string;
+    breaking?: string;
+    trending?: string;
     q?: string;
     sort?: string;
   }>;
@@ -53,6 +56,8 @@ async function getNewsList(params: {
   date_from?: string;
   date_to?: string;
   featured?: boolean;
+  breaking?: boolean;
+  trending?: boolean;
   q?: string;
   sort?: SortOption;
 }): Promise<NewsListResponse | null> {
@@ -67,15 +72,22 @@ async function getNewsList(params: {
     if (params.date_to) searchParams.set("date_to", params.date_to);
     if (params.featured !== undefined)
       searchParams.set("featured", params.featured.toString());
+    if (params.breaking !== undefined)
+      searchParams.set("breaking", params.breaking.toString());
+    if (params.trending !== undefined)
+      searchParams.set("trending", params.trending.toString());
     if (params.q) searchParams.set("q", params.q);
     if (params.sort) searchParams.set("sort", params.sort);
 
-    const response = await fetch(
-      `${API_BASE_URL}/news?${searchParams.toString()}`,
-      {
-        next: { revalidate: 60 },
-      }
-    );
+    const apiUrl = `${API_BASE_URL}/news?${searchParams.toString()}`;
+    console.log("[SSR] News API Request:", {
+      url: apiUrl,
+      params: Object.fromEntries(searchParams.entries()),
+    });
+
+    const response = await fetch(apiUrl, {
+      next: { revalidate: 60 },
+    });
 
     if (!response.ok) {
       throw new Error("Failed to fetch news list");
@@ -137,6 +149,8 @@ export default async function NewsPage({
   const perPage = parseInt(search.per_page || "12", 10);
   const sort = (search.sort as SortOption) || "-published_at";
 
+  console.log("[SSR] Search params received:", search);
+
   const [newsResponse, categories] = await Promise.all([
     getNewsList({
       page,
@@ -145,6 +159,8 @@ export default async function NewsPage({
       date_from: search.date_from,
       date_to: search.date_to,
       featured: search.featured === "true" ? true : undefined,
+      breaking: search.breaking === "true" ? true : undefined,
+      trending: search.trending === "true" ? true : undefined,
       q: search.q,
       sort,
     }),
@@ -161,7 +177,7 @@ export default async function NewsPage({
         year: "numeric",
         month: "short",
         day: "numeric",
-      }
+      },
     );
   };
 
@@ -223,44 +239,33 @@ export default async function NewsPage({
 
         <div className="container mx-auto px-4 md:px-8 py-12">
           <div className="flex flex-col lg:flex-row gap-8">
-            {/* Categories Sidebar */}
+            {/* Categories Sidebar with Bookmark Functionality */}
             {categories.length > 0 && (
-              <aside className="lg:w-64 shrink-0">
-                <div className="bg-white rounded-2xl shadow-lg p-6 sticky top-4">
-                  <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                    <Tag className="w-5 h-5 text-primary-800" />
-                    {t("categories")}
-                  </h2>
-                  <div className="flex flex-col gap-2">
-                    <Link
-                      href={buildUrl({ category: undefined, page: "1" })}
-                      className={`px-4 py-3 rounded-xl text-sm font-medium transition-colors ${
-                        !search.category
-                          ? "bg-primary-800 text-white"
-                          : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                      }`}
-                    >
-                      {t("allCategories")}
-                    </Link>
-                    {categories.map((cat) => (
-                      <Link
-                        key={cat.id}
-                        href={buildUrl({ category: cat.slug, page: "1" })}
-                        className={`px-4 py-3 rounded-xl text-sm font-medium transition-colors flex items-center justify-between ${
-                          search.category === cat.slug
-                            ? "bg-primary-800 text-white"
-                            : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                        }`}
-                      >
-                        <span>{cat.name}</span>
-                        <span className="text-xs opacity-70">
-                          {cat.news_count}
-                        </span>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              </aside>
+              <NewsPageClient
+                categories={categories}
+                currentCategory={search.category}
+                locale={locale}
+                translations={{
+                  categories: t("categories"),
+                  allCategories: t("allCategories"),
+                  filters: t("filters"),
+                  breakingNews: t("breakingNews"),
+                  trending: t("trending"),
+                  bookmark: t("bookmark"),
+                  bookmarked: t("bookmarked"),
+                  authModal: {
+                    title: t("authModalTitle"),
+                    description: t("authModalDescription"),
+                    namePlaceholder: t("authModalNamePlaceholder"),
+                    nameLabel: t("authModalNameLabel"),
+                    submit: t("authModalSubmit"),
+                    cancel: t("authModalCancel"),
+                    generating: t("authModalGenerating"),
+                    success: t("authModalSuccess"),
+                    error: t("authModalError"),
+                  },
+                }}
+              />
             )}
 
             {/* Main Content */}
@@ -477,7 +482,7 @@ export default async function NewsPage({
                             {pageNum}
                           </Link>
                         );
-                      }
+                      },
                     )}
                   </div>
 

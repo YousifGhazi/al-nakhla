@@ -5,6 +5,8 @@ export type Show = {
   title: string;
   slug: string;
   about: string;
+  host_name: string;
+  presenters: string[];
   schedule: {
     steam_time: string;
     days_of_week:

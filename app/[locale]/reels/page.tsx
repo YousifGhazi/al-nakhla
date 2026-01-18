@@ -10,7 +10,7 @@ import {
   normalizeMeta,
 } from "@/types/reels";
 
-const API_BASE_URL = "http://168.231.101.52:8080/api";
+const API_BASE_URL = "https://api.palm-fm.cloud/api";
 
 interface ReelsPageProps {
   params: Promise<{ locale: string }>;
@@ -25,7 +25,7 @@ interface ReelsPageProps {
 async function getReels(
   page: number = 1,
   search?: string,
-  sort?: string
+  sort?: string,
 ): Promise<ReelsResponse | null> {
   try {
     const params = new URLSearchParams();
@@ -202,6 +202,14 @@ export default async function ReelsPage({
                 usernamePlaceholder: t("usernamePlaceholder"),
                 save: t("save"),
                 cancel: t("cancel"),
+                authModalTitle: t("authModalTitle"),
+                authModalDescription: t("authModalDescription"),
+                authModalNamePlaceholder: t("authModalNamePlaceholder"),
+                authModalNameLabel: t("authModalNameLabel"),
+                authModalSubmit: t("authModalSubmit"),
+                authModalGenerating: t("authModalGenerating"),
+                authModalSuccess: t("authModalSuccess"),
+                authModalError: t("authModalError"),
               }}
             />
           </div>

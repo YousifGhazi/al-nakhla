@@ -3,6 +3,7 @@ import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { Cairo } from "next/font/google";
+import AuthInitializer from "@/components/auth-initializer";
 import "../globals.css";
 
 const cairo = Cairo({
@@ -40,6 +41,7 @@ export default async function LocaleLayout({
     >
       <body className={`${cairo.variable} antialiased bg-gray-50`}>
         <NextIntlClientProvider messages={messages}>
+          <AuthInitializer />
           {children}
         </NextIntlClientProvider>
       </body>

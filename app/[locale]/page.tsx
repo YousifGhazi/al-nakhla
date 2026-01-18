@@ -7,7 +7,7 @@ import Footer from "@/components/footer";
 import { News } from "@/types/news";
 import { Show, ShowListResponse } from "@/types/shows";
 
-const API_BASE_URL = "http://168.231.101.52:8080/api";
+const API_BASE_URL = "https://api.palm-fm.cloud/api";
 
 export interface HomeCategory {
   id: number;

@@ -28,7 +28,7 @@ export default function Footer() {
     async function fetchCategories() {
       try {
         const response = await fetch(
-          `http://168.231.101.52:8080/api/categories`
+          `https://api.palm-fm.cloud/api/categories`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch categories");
